@@ -24,11 +24,10 @@ namespace Obscurum.TDT
         internal void Complete(T result)
         {
             Complete();
-                
-            if (!complete) return;
-
+            
             lock (key)
-            {
+            {    
+                if (!complete) return;
                 outcome = result; 
                 _result?.Invoke(result);
             }
@@ -37,9 +36,8 @@ namespace Obscurum.TDT
     
     public class Tracker
     {
-        
         private readonly List<Exception> exceptions = new();
-        private event Action<Exception> _handles;
+        private event Action<Exception> _trackers;
         private int done;
         internal readonly object key = new();
         internal bool complete;
@@ -78,31 +76,34 @@ namespace Obscurum.TDT
         
         public Tracker Combine(Tracker dependency)
         {
-            var handle = new Tracker
+            lock (key)
             {
-                amount = amount + dependency.amount,
-                done = done + dependency.done
-            };
-
-            _handles += handle.Complete;
-            dependency._handles += handle.Complete;
-            
-            return handle;
+                var handle = new Tracker
+                {
+                    amount = amount + dependency.amount,
+                    done = done + dependency.done
+                };
+                
+                _trackers += handle.Complete;
+                dependency._trackers += handle.Complete;
+                            
+                return handle;
+            }
         }
         
         internal void Complete(Exception exception = null)
         {
-            if (exception != null) exceptions.Add(exception);
-            
-            done = Math.Min(done + 1, amount);
-            complete = done >= amount;
-                     
-            _handles?.Invoke(exception);
-            
-            if (!complete) return;
-
             lock (key)
             {
+                if (exception != null) exceptions.Add(exception);
+            
+                done = Math.Min(done + 1, amount);
+                complete = done >= amount;
+                     
+                _trackers?.Invoke(exception);
+            
+                if (!complete) return;
+                
                 if (exceptions.Count != 0) _exception?.Invoke(exceptions);
                 _success?.Invoke();
             }
