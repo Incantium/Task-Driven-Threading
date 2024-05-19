@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace Obscurum.TDT
 {
@@ -23,13 +24,17 @@ namespace Obscurum.TDT
 
         internal void Complete(T result)
         {
-            Complete();
-            
             lock (key)
-            {    
+            {
+                Increment();
+                Notify();
+                
                 if (!complete) return;
-                outcome = result; 
+                
+                outcome = result;
                 _result?.Invoke(result);
+
+                Final();
             }
         }
     }
@@ -37,11 +42,11 @@ namespace Obscurum.TDT
     public class Tracker
     {
         private readonly List<Exception> exceptions = new();
-        private event Action<Exception> _trackers;
         private int done;
         internal readonly object key = new();
         internal bool complete;
         internal int amount = 1;
+        internal bool final;
         
         public float percentage => 100f * done / amount;
         
@@ -73,40 +78,88 @@ namespace Obscurum.TDT
             }
             remove => _exception -= value;
         }
-        
-        public Tracker Combine(Tracker dependency)
+
+        private event Action _dependency;
+        internal event Action dependency
         {
-            lock (key)
+            add
             {
-                var handle = new Tracker
+                lock (key)
                 {
-                    amount = amount + dependency.amount,
-                    done = done + dependency.done
-                };
-                
-                _trackers += handle.Complete;
-                dependency._trackers += handle.Complete;
-                            
-                return handle;
+                    if (final) value.Invoke();
+                    else _dependency += value;
+                }
             }
+            remove => _dependency -= value;
+        }
+
+        /// <summary>
+        /// Method to wait for the <see cref="Tracker"/> to be completed. This method will continue after everything has
+        /// completed and all events has been called.
+        /// </summary>
+        /// <remarks>This method will stall the current thread for executing until the <see cref="Tracker"/> has been
+        /// completed. For more safety, it is advised to use <see cref="Wait(int)"/>.</remarks>
+        /// <seealso cref="Wait(int)"/>
+        public void Wait()
+        {
+            while (!final) {}
         }
         
+        /// <summary>
+        /// Method to wait for the <see cref="Tracker"/> to be completed. This method will continue after everything has
+        /// completed and all events has been called, or the allotted time has run out.
+        /// </summary>
+        /// <param name="milliseconds">The maximum amount of milliseconds the <see cref="Tracker"/> will wait for a
+        /// resolution.</param>
+        /// <exception cref="TimeoutException">Thrown when the allotted time has run out without a resolution.
+        /// </exception>
+        public void Wait(int milliseconds)
+        {
+            var elapsed = false;
+            var timer = new Timer(milliseconds);
+
+            timer.Elapsed += (_, _) => elapsed = true;
+            timer.Start();
+
+            while (!final)
+            {
+                if (elapsed) throw new TimeoutException();
+            }
+        }
+
         internal void Complete(Exception exception = null)
         {
             lock (key)
-            {
+            { 
                 if (exception != null) exceptions.Add(exception);
-            
-                done = Math.Min(done + 1, amount);
-                complete = done >= amount;
-                     
-                _trackers?.Invoke(exception);
-            
-                if (!complete) return;
                 
-                if (exceptions.Count != 0) _exception?.Invoke(exceptions);
-                _success?.Invoke();
+                Increment();
+                Notify();
+                
+                if (!complete) return;
+
+                Final();
             }
+        }
+
+        internal void Increment()
+        {
+            done = Math.Min(done + 1, amount);
+            complete = done >= amount;
+        }
+
+        internal void Notify()
+        {
+            if (!complete) return;
+            
+            if (exceptions.Count != 0) _exception?.Invoke(exceptions);
+            _success?.Invoke();
+        }
+
+        internal void Final()
+        {
+            final = true;
+            _dependency?.Invoke();
         }
     }
 }

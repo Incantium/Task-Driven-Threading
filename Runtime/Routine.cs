@@ -114,7 +114,8 @@ namespace Obscurum.TDT
         
         public override string ToString() => "Routine{" + 
                                              "Current status=" + (running ? "running" : "idle") + ", " + 
-                                             "interval=" + 1000 / interval + " ticks per second - " + interval + " milliseconds" + 
+                                             "interval=" + interval + " milliseconds, " + 
+                                             "tps=" + 1000 / interval + " ticks per second" + 
                                              "}";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
 
 namespace Obscurum.TDT
 {
@@ -15,12 +16,26 @@ namespace Obscurum.TDT
     public abstract class Task<T>
     {
         private Tracker<T> tracker;
+        private Thread thread;
+        private int timeout = 60000; // 1 minute
         
         /// <summary>
         /// Method called to execute the <see cref="Task{T}"/>.
         /// </summary>
         /// <returns>The return value of the <see cref="Task{T}"/>.</returns>
         protected abstract T Execute();
+        
+        /// <summary>
+        /// Method to alter the allotted maximum time this <see cref="Task{T}"/> may take. If this time is reached,
+        /// this <see cref="Task{T}"/> will throw an <see cref="TimeoutException"/>.
+        /// </summary>
+        /// <param name="milliseconds">The maximum allotted time for this <see cref="Task{T}"/>.</param>
+        /// <returns>The current <see cref="Task{T}"/>.</returns>
+        public Task<T> Timeout(int milliseconds)
+        {
+            timeout = milliseconds;
+            return this;
+        }
         
         /// <summary>
         /// Method to schedule the <see cref="Task{T}"/> to <see cref="Execute"/>.
@@ -53,15 +68,20 @@ namespace Obscurum.TDT
             
             tracker = new Tracker<T>();
 
-            dependency.success += Start;
+            dependency.dependency += Start;
 
             return tracker;
         }
 
         private void Start()
         {
-            var thread = new Thread(Run);
+            thread = new Thread(Run);
+            
+            var timer = new System.Timers.Timer(timeout);
+            timer.Elapsed += TimeOut;
+            
             thread.Start();
+            timer.Start();
         }
         
         private void Run()
@@ -70,6 +90,19 @@ namespace Obscurum.TDT
             {
                 var result = Execute();
                 tracker.Complete(result);
+            }
+            catch (Exception e)
+            {
+                tracker.Complete(e);
+            }
+        }
+        
+        private void TimeOut(object o, ElapsedEventArgs elapsedEventArgs)
+        {
+            try
+            {
+                thread.Abort();
+                tracker.Complete(new TimeoutException("The maximum allotted time of '" + timeout + "' milliseconds has been reached."));
             }
             catch (Exception e)
             {
@@ -89,11 +122,25 @@ namespace Obscurum.TDT
     public abstract class Task
     {
         private Tracker tracker;
+        private Thread thread;
+        private int timeout = 60000; // 1 minute
         
         /// <summary>
         /// Method called to execute the <see cref="Task"/>.
         /// </summary>
         protected abstract void Execute();
+
+        /// <summary>
+        /// Method to alter the allotted maximum time this <see cref="Task"/> may take. If this time is reached,
+        /// this <see cref="Task"/> will throw an <see cref="TimeoutException"/>.
+        /// </summary>
+        /// <param name="milliseconds">The maximum allotted time for this <see cref="Task"/>.</param>
+        /// <returns>The current <see cref="Task"/>.</returns>
+        public Task Timeout(int milliseconds)
+        {
+            timeout = milliseconds;
+            return this;
+        }
         
         /// <summary>
         /// Method to schedule the <see cref="Task"/> to <see cref="Execute"/>.
@@ -126,23 +173,41 @@ namespace Obscurum.TDT
             
             tracker = new Tracker();
 
-            dependency.success += Start;
+            dependency.dependency += Start;
 
             return tracker;
         }
         
         private void Start()
         {
-            var thread = new Thread(Run);
+            thread = new Thread(Run);
+            
+            var timer = new System.Timers.Timer(timeout);
+            timer.Elapsed += TimeOut;
+            
             thread.Start();
+            timer.Start();
         }
-        
+
         private void Run()
         {
             try
             {
                 Execute();
                 tracker.Complete();
+            }
+            catch (Exception e)
+            {
+                tracker.Complete(e);
+            }
+        }
+        
+        private void TimeOut(object o, ElapsedEventArgs elapsedEventArgs)
+        {
+            try
+            {
+                thread.Abort();
+                tracker.Complete(new TimeoutException("The maximum allotted time of '" + timeout + "' milliseconds has been reached."));
             }
             catch (Exception e)
             {
