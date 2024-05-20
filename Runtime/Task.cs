@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Timers;
 
 namespace Obscurum.TDT
 {
@@ -16,7 +14,6 @@ namespace Obscurum.TDT
     public abstract class Task<T>
     {
         private Tracker<T> tracker;
-        private Thread thread;
         private int timeout = 60000; // 1 minute
         
         /// <summary>
@@ -75,13 +72,9 @@ namespace Obscurum.TDT
 
         private void Start()
         {
-            thread = new Thread(Run);
-            
-            var timer = new System.Timers.Timer(timeout);
-            timer.Elapsed += TimeOut;
-            
+            var thread = new TimeoutThread(Run, timeout);
+            thread.onTimeout += e => tracker.Complete(e);
             thread.Start();
-            timer.Start();
         }
         
         private void Run()
@@ -90,19 +83,6 @@ namespace Obscurum.TDT
             {
                 var result = Execute();
                 tracker.Complete(result);
-            }
-            catch (Exception e)
-            {
-                tracker.Complete(e);
-            }
-        }
-        
-        private void TimeOut(object o, ElapsedEventArgs elapsedEventArgs)
-        {
-            try
-            {
-                thread.Abort();
-                tracker.Complete(new TimeoutException("The maximum allotted time of '" + timeout + "' milliseconds has been reached."));
             }
             catch (Exception e)
             {
@@ -122,7 +102,6 @@ namespace Obscurum.TDT
     public abstract class Task
     {
         private Tracker tracker;
-        private Thread thread;
         private int timeout = 60000; // 1 minute
         
         /// <summary>
@@ -180,13 +159,9 @@ namespace Obscurum.TDT
         
         private void Start()
         {
-            thread = new Thread(Run);
-            
-            var timer = new System.Timers.Timer(timeout);
-            timer.Elapsed += TimeOut;
-            
+            var thread = new TimeoutThread(Run, timeout);
+            thread.onTimeout += e => tracker.Complete(e);
             thread.Start();
-            timer.Start();
         }
 
         private void Run()
@@ -195,19 +170,6 @@ namespace Obscurum.TDT
             {
                 Execute();
                 tracker.Complete();
-            }
-            catch (Exception e)
-            {
-                tracker.Complete(e);
-            }
-        }
-        
-        private void TimeOut(object o, ElapsedEventArgs elapsedEventArgs)
-        {
-            try
-            {
-                thread.Abort();
-                tracker.Complete(new TimeoutException("The maximum allotted time of '" + timeout + "' milliseconds has been reached."));
             }
             catch (Exception e)
             {

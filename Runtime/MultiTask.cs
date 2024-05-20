@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Threading;
 
 namespace Obscurum.TDT
 {
@@ -17,7 +16,6 @@ namespace Obscurum.TDT
     {
         private T[] result;
         private Tracker<T[]> tracker;
-        private Thread[] threads;
         private int amount;
         private int batch = 1;
         private int timeout = 60000; // 1 minute
@@ -138,19 +136,12 @@ namespace Obscurum.TDT
             tracker.amount = amount;
 
             result = new T[amount];
-            threads = new Thread[amount];
                         
             for (var i = 0; i < amount; i += batch)
             {
-                var thread = new Thread(Run);
-                threads[i] = thread;
-                
-                var timer = new System.Timers.Timer(timeout);
-                var i1 = i;
-                timer.Elapsed += (_, _) => TimeOut(i1);
-                
+                var thread = new ParameterizedTimeoutThread(Run, timeout);
+                thread.onTimeout += e => tracker.Complete(e);
                 thread.Start(i);
-                timer.Start();
             }
         }
 
@@ -173,19 +164,6 @@ namespace Obscurum.TDT
                 }
             }
         }
-        
-        private void TimeOut(int i)
-        {
-            try
-            {
-                threads[i].Abort();
-                tracker.Complete(new TimeoutException("The maximum allotted time of '" + timeout + "' milliseconds has been reached."));
-            }
-            catch (Exception e)
-            {
-                tracker.Complete(e);
-            }
-        }
     }
 
     /// <summary>
@@ -199,7 +177,6 @@ namespace Obscurum.TDT
     public abstract class MultiTask
     {
         private Tracker tracker;
-        private Thread[] threads;
         private int amount;
         private int batch = 1;
         private int timeout = 60000; // 1 minute
@@ -317,20 +294,12 @@ namespace Obscurum.TDT
         {
             this.amount = amount;
             tracker.amount = amount;
-
-            threads = new Thread[amount];
                         
             for (var i = 0; i < amount; i += batch)
             {
-                var thread = new Thread(Run);
-                threads[i] = thread;
-                
-                var timer = new System.Timers.Timer(timeout);
-                var i1 = i;
-                timer.Elapsed += (_, _) => TimeOut(i1);
-                
+                var thread = new ParameterizedTimeoutThread(Run, timeout);
+                thread.onTimeout += e => tracker.Complete(e);
                 thread.Start(i);
-                timer.Start();
             }
         }
         
@@ -349,19 +318,6 @@ namespace Obscurum.TDT
                 {
                     tracker.Complete(e);
                 }
-            }
-        }
-        
-        private void TimeOut(int i)
-        {
-            try
-            {
-                threads[i].Abort();
-                tracker.Complete(new TimeoutException("The maximum allotted time of '" + timeout + "' milliseconds has been reached."));
-            }
-            catch (Exception e)
-            {
-                tracker.Complete(e);
             }
         }
     }
