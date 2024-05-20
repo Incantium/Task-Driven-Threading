@@ -5,9 +5,9 @@ using System.Timers;
 namespace Obscurum.TDT
 {
     /// <summary>
-    /// Class to keep track of a <see cref="Task{T}"/> or <see cref="MultiTask{T}"/> for completion.
+    /// Class to keep track of a task for completion.
     /// </summary>
-    /// <typeparam name="T">The <see cref="result"/> type of the <see cref="Task{T}"/> or <see cref="MultiTask{T}"/>.
+    /// <typeparam name="T">The <see cref="result"/> type of the task.
     /// </typeparam>
     /// <author>Vanaest</author>
     /// <version>1.0.0</version>
@@ -52,7 +52,7 @@ namespace Obscurum.TDT
     }
     
     /// <summary>
-    /// Class to keep track of a <see cref="Task"/> or <see cref="MultiTask"/> for completion.
+    /// Class to keep track of a task for completion.
     /// </summary>
     /// <author>Vanaest</author>
     /// <version>1.0.0</version>

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -36,23 +37,23 @@ namespace Obscurum.TDT.Tests
             // Act
             var tracker1 = task1.Schedule();
             var tracker2 = task2.Schedule(tracker1);
-
+        
             tracker1.result += result => actual += result;
             tracker2.result += result => actual += result;
             
             tracker2.Wait(500);
-
+        
             //Assert
             Assert.AreEqual(expected, actual);
         }
     }
     
-    internal class TaskMessage : Task<string> 
+    internal class TaskMessage : Task<string>
     {
         private readonly string message;
 
         public TaskMessage(string message) => this.message = message;
         
-        protected override string Execute() => message;
+        public string Execute() => message;
     }
 }

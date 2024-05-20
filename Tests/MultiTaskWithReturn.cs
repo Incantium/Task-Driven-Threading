@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -7,7 +8,7 @@ namespace Obscurum.TDT.Tests
     {
         private static readonly Random RANDOM = new();
         
-        protected override int Execute(int i) => i;
+        public int Execute(int i) => i;
 
         [Test, Repeat(10)]
         public void TestMultiTaskWithReturn()
@@ -62,7 +63,7 @@ namespace Obscurum.TDT.Tests
             var task = new MultiTaskWithReturn();
 
             // Act
-            var tracker = task.Batch(batch).Schedule(10);
+            var tracker = task.Schedule(10, batch);
 
             tracker.result += result => actual = result;
             tracker.Wait();

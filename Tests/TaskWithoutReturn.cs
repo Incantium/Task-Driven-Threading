@@ -1,10 +1,11 @@
 ﻿using NUnit.Framework;
+using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
     internal class TaskWithoutReturn : Task
     {
-        protected override void Execute() {}
+        public void Execute() {}
 
         [Test, Repeat(10)]
         public void TestTaskWithReturn()

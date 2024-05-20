@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -7,7 +8,7 @@ namespace Obscurum.TDT.Tests
     {
         private static readonly Exception expected = new();
         
-        protected override int Execute() => throw expected;
+        public int Execute() => throw expected;
 
         [Test, Repeat(10)]
         public void TestTaskWithException()
