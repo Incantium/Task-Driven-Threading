@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -13,7 +12,7 @@ namespace Obscurum.TDT.Tests
             // Arrange
             var actual = false;
             
-            var task = new TaskWithoutReturn();
+            Task task = new TaskWithoutReturn();
             
             // Act
             var tracker = task.Schedule();
@@ -31,8 +30,8 @@ namespace Obscurum.TDT.Tests
             // Arrange
             var actual = false;
             
-            var task1 = new TaskWithoutReturn();
-            var task2 = new TaskWithoutReturn();
+            Task task1 = new TaskWithoutReturn();
+            Task task2 = new TaskWithoutReturn();
             
             // Act
             var tracker1 = task1.Schedule();

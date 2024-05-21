@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Runners
 { 

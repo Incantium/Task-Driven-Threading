@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -12,7 +11,7 @@ namespace Obscurum.TDT.Tests
             const string expected = "Hello World!";
             var actual = "";
             
-            var task = new TaskMessage("Hello World!");
+            Task<string> task = new TaskMessage("Hello World!");
             
             // Act
             var tracker = task.Schedule();
@@ -31,8 +30,8 @@ namespace Obscurum.TDT.Tests
             const string expected = "Hello World!";
             var actual = "";
             
-            var task1 = new TaskMessage("Hello ");
-            var task2 = new TaskMessage("World!");
+            Task<string> task1 = new TaskMessage("Hello ");
+            Task<string> task2 = new TaskMessage("World!");
             
             // Act
             var tracker1 = task1.Schedule();

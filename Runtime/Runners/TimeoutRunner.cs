@@ -1,5 +1,4 @@
 ﻿using System;
-using Obscurum.TDT.Tasks;
 using Obscurum.TDT.Threads;
 
 namespace Obscurum.TDT.Runners

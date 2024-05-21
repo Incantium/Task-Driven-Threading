@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -17,7 +16,7 @@ namespace Obscurum.TDT.Tests
             var expected = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             int[] actual = null;
 
-            var task = new MultiTaskWithReturn();
+            MultiTask<int> task = new MultiTaskWithReturn();
 
             // Act
             var tracker = task.Schedule(10);
@@ -41,7 +40,7 @@ namespace Obscurum.TDT.Tests
             
             for (var i = 0; i < length; i++) expected[i] = i;
             
-            var task = new MultiTaskWithReturn();
+            MultiTask<int> task = new MultiTaskWithReturn();
 
             // Act
             var tracker = task.Schedule(expected);
@@ -60,7 +59,7 @@ namespace Obscurum.TDT.Tests
             var expected = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             int[] actual = null;
 
-            var task = new MultiTaskWithReturn();
+            MultiTask<int> task = new MultiTaskWithReturn();
 
             // Act
             var tracker = task.Schedule(10, batch);

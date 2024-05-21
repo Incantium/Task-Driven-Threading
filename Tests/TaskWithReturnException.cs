@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using Obscurum.TDT.Tasks;
 
 namespace Obscurum.TDT.Tests
 {
@@ -16,7 +15,7 @@ namespace Obscurum.TDT.Tests
             // Arrange
             Exception actual = null;
 
-            var task = new TaskWithReturnException();
+            Task<int> task = new TaskWithReturnException();
 
             // Act
             var tracker = task.Schedule();
