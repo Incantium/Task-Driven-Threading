@@ -109,7 +109,7 @@ namespace Obscurum.TDT.Runners
             for (var i = 0; i < amount; i += batch)
             {
                 var thread = new ParameterizedTimeoutThread(Run, timeout);
-                thread.onTimeout += e => tracker.Complete(e);
+                thread.onTimeout += e => tracker.Complete(e, batch);
                 thread.Start(i);
             }
         }

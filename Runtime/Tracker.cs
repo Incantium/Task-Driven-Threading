@@ -158,13 +158,13 @@ namespace Obscurum.TDT
             }
         }
 
-        internal void Complete(Exception exception = null)
+        internal void Complete(Exception exception = null, int increment = 1)
         {
             lock (key)
             { 
                 if (exception != null) exceptions.Add(exception);
                 
-                Increment();
+                Increment(increment);
                 Notify();
                 
                 if (!complete) return;
@@ -173,9 +173,9 @@ namespace Obscurum.TDT
             }
         }
 
-        internal void Increment()
+        internal void Increment(int increment = 1)
         {
-            done = Math.Min(done + 1, amount);
+            done = Math.Min(done + increment, amount);
             complete = done >= amount;
         }
 
