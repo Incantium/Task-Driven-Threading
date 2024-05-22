@@ -38,18 +38,18 @@ namespace Obscurum.TDT
         protected virtual void Update() {}
         
         /// <summary>
-        /// Endpoint called to after a <see cref="Stop"/> or <see cref="Crash"/> to shutdown the <see cref="Routine"/>.
-        /// Implement this method to shutdown the <see cref="Routine"/> by releasing all necessary assets and data.
-        /// </summary>
-        protected virtual void Shutdown() {}
-        
-        /// <summary>
         /// Method endpoint called when an <see cref="Exception"/> has occurred in the <see cref="Routine"/>. Implement
         /// this method to gracefully resolve the <see cref="Exception"/> thrown or <see cref="Start"/> the
         /// <see cref="Routine"/> again.
         /// </summary>
         /// <param name="e">The <see cref="Exception"/> thrown.</param>
         protected virtual void Crash(Exception e) {}
+        
+        /// <summary>
+        /// Endpoint called to after a <see cref="Stop"/> or <see cref="Crash"/> to shutdown the <see cref="Routine"/>.
+        /// Implement this method to shutdown the <see cref="Routine"/> by releasing all necessary assets and data.
+        /// </summary>
+        protected virtual void Shutdown() {}
         
         /// <summary>
         /// Method to start the <see cref="Routine"/>.This will call <see cref="Setup"/> once. Afterwards, this method
