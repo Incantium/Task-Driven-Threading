@@ -4,71 +4,57 @@ using System.Threading;
 namespace Obscurum.TDT.Threads
 {
     /// <summary>
-    /// Class that represents a <see cref="thread"/> that will automatically <see cref="timeout"/> after a specified
-    /// duration.
+    /// Class that represents a thread that will automatically <see cref="timeout"/> after a specified duration.
     /// </summary>
-    /// <remarks>This class uses <see cref="Thread.Abort()"/> to kill the <see cref="thread"/> at timeout. This may
-    /// produce unforeseen errors and cannot be used in .NET Core and .NET 5+.</remarks>
     /// <author>Vanaest</author>
     /// <version>1.0.0</version>
     public class TimeoutThread
     {
-        private readonly Thread thread;
-        private readonly System.Timers.Timer timer;
         private readonly ThreadStart method;
+        private readonly CancellationTokenSource source;
         private readonly int timeout;
 
         /// <summary>
-        /// Event to get notified when the <see cref="thread"/> had timed out.
+        /// Event to get notified when the thread had timed out.
         /// </summary>
         public event Action<Exception> onTimeout;
 
         /// <summary>
         /// Constructor to create a new <see cref="TimeoutThread"/>.
         /// </summary>
-        /// <param name="start">The method to run in the <see cref="thread"/>.</param>
-        /// <param name="milliseconds">The maximum amount of milliseconds before the <see cref="thread"/> times out. It
-        /// is set to a default of one minute.</param>
+        /// <param name="start">The method to run in the thread.</param>
+        /// <param name="milliseconds">The maximum amount of milliseconds before the thread times out. It is set to a
+        /// default of one minute.</param>
         public TimeoutThread(ThreadStart start, int milliseconds = 60000)
         {
-            thread = new Thread(Run);
-            timer = new System.Timers.Timer(milliseconds);
             method = start;
+            source = new CancellationTokenSource(milliseconds);
             timeout = milliseconds;
-            
-            timer.Elapsed += (_, _) => Timeout();
         }
 
         /// <summary>
-        /// Method to start the execution of the <see cref="thread"/> and the timeout <see cref="timer"/>.
+        /// Method to start the execution of the thread.
         /// </summary>
         public void Start()
         {
-            timer.Start();
-            thread.Start();
+            var token = source.Token;
+            token.Register(Timeout);
+            
+            var task = new System.Threading.Tasks.Task(Run, token);
+            
+            task.Start();
         }
 
         private void Run()
         {
             method.Invoke();
-            
-            timer.Stop();
-            timer.Dispose();
+            source.Dispose();
         }
 
         private void Timeout()
         {
-            try
-            {
-                thread.Abort();
-                onTimeout?.Invoke(new TimeoutException("The maximum allotted time of " + timeout + " milliseconds has been reached."));
-            }
-            catch (Exception e)
-            {
-                onTimeout?.Invoke(e);
-            }
-            
-            timer.Dispose();
+            source.Dispose();
+            onTimeout?.Invoke(new TimeoutException("The maximum allotted time of " + timeout + " milliseconds has been reached."));
         }
     }
 }
