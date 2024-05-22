@@ -9,8 +9,8 @@ namespace Obscurum.TDT.Tests
     {
         private static readonly Random RANDOM = new();
         
-        [Test]
-        public void TestMultiTask()
+        [Test, Repeat(10)]
+        public void TestMultiTask([Values(0, 1000)] int timeout)
         {
             // Arrange
             var expected = new[] { "i", "i", "i", "i", "i" };
@@ -19,7 +19,7 @@ namespace Obscurum.TDT.Tests
             MultiTask<string> task = new ExampleTask("i");
 
             // Act
-            var tracker = task.Schedule(5, 2);
+            var tracker = task.Schedule(5, 2, timeout);
             tracker.result += result => actual = result;
             
             tracker.Wait(1000);
@@ -28,7 +28,7 @@ namespace Obscurum.TDT.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+        [Test, Repeat(10)]
         public void TestRandomMultiTask()
         {
             // Arrange
@@ -52,7 +52,7 @@ namespace Obscurum.TDT.Tests
             Assert.AreEqual(expected, actual);
         }
         
-        [Test]
+        [Test, Repeat(10)]
         public void TestDependency()
         {
             // Arrange
@@ -74,7 +74,7 @@ namespace Obscurum.TDT.Tests
             Assert.AreEqual(expected, actual);
         }
         
-        [Test]
+        [Test, Repeat(10)]
         public void TestRandomDependency()
         {
             // Arrange
@@ -100,8 +100,8 @@ namespace Obscurum.TDT.Tests
             Assert.AreEqual(expected, actual);
         }
         
-        [Test]
-        public void TestException()
+        [Test, Repeat(10)]
+        public void TestException([Values(0, 1000)] int timeout)
         {
             // Arrange
             var e = new Exception();
@@ -112,7 +112,7 @@ namespace Obscurum.TDT.Tests
             MultiTask<string> task = new ExceptionTask(e);
 
             // Act
-            var tracker = task.Schedule(5);
+            var tracker = task.Schedule(5, 1, timeout);
             tracker.exception += exception => actual = exception;
             
             tracker.Wait(1000);

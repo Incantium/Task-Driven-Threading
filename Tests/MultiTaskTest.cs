@@ -9,8 +9,8 @@ namespace Obscurum.TDT.Tests
     {
         private static readonly Random RANDOM = new();
         
-        [Test]
-        public void TestMultiTask()
+        [Test, Repeat(10)]
+        public void TestMultiTask([Values(0, 1000)] int timeout)
         {
             // Arrange
             var complete = false;
@@ -18,7 +18,7 @@ namespace Obscurum.TDT.Tests
             MultiTask task = new ExampleTask("");
 
             // Act
-            var tracker = task.Schedule(10, 2);
+            var tracker = task.Schedule(10, 2, timeout);
             tracker.success += () => complete = true;
             
             tracker.Wait(1000);
@@ -27,7 +27,7 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
 
-        [Test]
+        [Test, Repeat(10)]
         public void TestRandomMultiTask()
         {
             // Arrange
@@ -45,7 +45,7 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
         
-        [Test]
+        [Test, Repeat(10)]
         public void TestDependency()
         {
             // Arrange
@@ -66,7 +66,7 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
         
-        [Test]
+        [Test, Repeat(10)]
         public void TestRandomDependency()
         {
             // Arrange
@@ -87,8 +87,8 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
         
-        [Test]
-        public void TestException()
+        [Test, Repeat(10)]
+        public void TestException([Values(0, 1000)] int timeout)
         {
             // Arrange
             var e = new Exception();
@@ -99,7 +99,7 @@ namespace Obscurum.TDT.Tests
             MultiTask task = new ExceptionTask(e);
 
             // Act
-            var tracker = task.Schedule(5);
+            var tracker = task.Schedule(5, 1, timeout);
             tracker.exception += exception => actual = exception;
             
             tracker.Wait(1000);

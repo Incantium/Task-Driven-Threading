@@ -6,8 +6,8 @@ namespace Obscurum.TDT.Tests
 {
     public class ReturnTaskTest
     {
-        [Test]
-        public void TestTask()
+        [Test, Repeat(10)]
+        public void TestTask([Values(0, 1000)] int timeout)
         {
             // Arrange
             const string expected = "Hello World!";
@@ -16,7 +16,7 @@ namespace Obscurum.TDT.Tests
             Task<string> task = new ExampleTask(expected);
 
             // Act
-            var tracker = task.Schedule();
+            var tracker = task.Schedule(timeout);
             tracker.result += result => actual = result;
             
             tracker.Wait(1000);
@@ -25,7 +25,7 @@ namespace Obscurum.TDT.Tests
             Assert.AreEqual(expected, actual);
         }
         
-        [Test]
+        [Test, Repeat(10)]
         public void TestDependency()
         {
             // Arrange
@@ -48,8 +48,8 @@ namespace Obscurum.TDT.Tests
             Assert.AreEqual(expected, actual);
         }
         
-        [Test]
-        public void TestException()
+        [Test, Repeat(10)]
+        public void TestException([Values(0, 1000)] int timeout)
         {
             // Arrange
             var expected = new Exception();
@@ -58,7 +58,7 @@ namespace Obscurum.TDT.Tests
             Task<string> task = new ExceptionTask(expected);
 
             // Act
-            var tracker = task.Schedule();
+            var tracker = task.Schedule(timeout);
             tracker.exception += exception => actual = exception[0];
             
             tracker.Wait(1000);

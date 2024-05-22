@@ -24,12 +24,12 @@ namespace Obscurum.TDT.Tests.Examples
 
         void MultiTask.Execute(int i)
         {
-            Thread.Sleep(milliseconds);
+            Thread.Sleep(milliseconds * (i + 1));
         }
 
         string MultiTask<string>.Execute(int i)
         {
-            Thread.Sleep(milliseconds);
+            Thread.Sleep(milliseconds * (i + 1));
             return "Complete";
         }
     }

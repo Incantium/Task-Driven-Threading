@@ -6,8 +6,8 @@ namespace Obscurum.TDT.Tests
 {
     public class TaskTest
     {
-        [Test]
-        public void TestTask()
+        [Test, Repeat(10)]
+        public void TestTask([Values(0, 1000)] int timeout)
         {
             // Arrange
             var complete = false;
@@ -15,7 +15,7 @@ namespace Obscurum.TDT.Tests
             Task task = new ExampleTask("");
             
             // Act
-            var tracker = task.Schedule();
+            var tracker = task.Schedule(timeout);
             tracker.success += () => complete = true;
             
             tracker.Wait(1000);
@@ -24,7 +24,7 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
 
-        [Test]
+        [Test, Repeat(10)]
         public void TestDependency()
         {
             // Arrange
@@ -43,8 +43,8 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
 
-        [Test]
-        public void TestException()
+        [Test, Repeat(10)]
+        public void TestException([Values(0, 1000)] int timeout)
         {
             // Arrange
             var expected = new Exception();
@@ -53,7 +53,7 @@ namespace Obscurum.TDT.Tests
             Task task = new ExceptionTask(expected);
 
             // Act
-            var tracker = task.Schedule();
+            var tracker = task.Schedule(timeout);
             tracker.exception += exception => actual = exception[0];
             
             tracker.Wait(1000);
