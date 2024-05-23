@@ -72,8 +72,8 @@ namespace Obscurum.TDT
         
         private event Action _success; 
         /// <summary>
-        /// Event to get notified when the <see cref="Tracker"/> has completed. This event will be called, even when an
-        /// some <see cref="exceptions"/> have triggered.
+        /// Event to get notified when the <see cref="Tracker"/> has completed. This event will be called, even some
+        /// <see cref="exceptions"/> have triggered.
         /// </summary>
         /// <remarks>If the <see cref="Tracker"/> has already completed, the added event will be immediately called.
         /// </remarks>
