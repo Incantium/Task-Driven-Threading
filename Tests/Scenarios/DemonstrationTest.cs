@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Obscurum.TDT.Tests.Scenarios
 {
     /// <summary>
-    /// Test class for a scenario that uses many of the features in this package. This class shows:
+    /// Test class to demonstrate many of the features in this package. This class shows:
     /// <ul>
     ///     <li>Multiple types of task interfaces (<see cref="Task"/>, <see cref="Task{T}"/>, <see cref="MultiTask"/>)
     ///     working together.
@@ -18,7 +18,7 @@ namespace Obscurum.TDT.Tests.Scenarios
     /// </summary>
     /// <author>Vanaest</author>
     /// <version>1.0.0</version>
-    internal sealed class ProductionTest
+    internal sealed class DemonstrationTest
     {
         /// <summary>
         /// Class to generate a <see cref="List{T}"/> of integers by the <see cref="amount"/>, starting at 1.
@@ -88,8 +88,8 @@ namespace Obscurum.TDT.Tests.Scenarios
         /// <expected>This test will use the <see cref="Generator"/> to create a range of integers from 1. The
         /// <see cref="Power"/> class will then take the power of each integer. The <see cref="Sum"/> class will as last
         /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</expected>
-        [Test]
-        public void TestProduction()
+        [Test, Repeat(10)]
+        public void TestDemonstration()
         {
             // Arrange
             const int amount = 5;
