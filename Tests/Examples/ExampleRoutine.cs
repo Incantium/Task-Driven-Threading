@@ -2,6 +2,11 @@
 
 namespace Obscurum.TDT.Tests.Examples
 {
+    /// <summary>
+    /// Class that represents an implementation of the <see cref="Routine"/> interfaces for testing purposes.
+    /// </summary>
+    /// <author>Vanaest</author>
+    /// <version>1.0.0</version>
     internal sealed class ExampleRoutine : Routine
     {
         public bool setup;

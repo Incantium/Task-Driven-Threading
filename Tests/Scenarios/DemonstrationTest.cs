@@ -17,7 +17,6 @@ namespace Obscurum.TDT.Tests.Scenarios
     /// </ul>
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
     internal sealed class DemonstrationTest
     {
         /// <summary>
@@ -88,6 +87,7 @@ namespace Obscurum.TDT.Tests.Scenarios
         /// <expected>This test will use the <see cref="Generator"/> to create a range of integers from 1. The
         /// <see cref="Power"/> class will then take the power of each integer. The <see cref="Sum"/> class will as last
         /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestDemonstration()
         {
@@ -99,9 +99,9 @@ namespace Obscurum.TDT.Tests.Scenarios
 
             var numbers = new List<int>();
 
-            Task task1 = new Generator(numbers, amount);
-            MultiTask task2 = new Power(numbers);
-            Task<int> task3 = new Sum(numbers);
+            var task1 = new Generator(numbers, amount);
+            var task2 = new Power(numbers);
+            var task3 = new Sum(numbers);
 
             // Act
             var tracker1 = task1.Schedule();

@@ -8,7 +8,6 @@ namespace Obscurum.TDT.Tests
     /// Test class for <see cref="Task"/>.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
     internal sealed class TaskTest
     {
         /// <summary>
@@ -17,13 +16,14 @@ namespace Obscurum.TDT.Tests
         /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
         /// <expected>The <see cref="Tracker"/> of the <see cref="Task"/> will trigger the
         /// <see cref="Tracker.success"/> event when the <see cref="Task"/> is completed.</expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestTask([Values(0, 1000)] int timeout)
         {
             // Arrange
             var complete = false;
 
-            Task task = new ExampleTask("");
+            Task task = new ExampleTask();
             
             // Act
             var tracker = task.Schedule(timeout);
@@ -36,13 +36,13 @@ namespace Obscurum.TDT.Tests
         }
 
         /// <summary>
-        /// Test case if a <see cref="Task"/> can be dependent upon another <see cref="Task"/>. This test will check if
-        /// the completion of one <see cref="Task"/> can trigger the activation of another <see cref="Task"/>.
+        /// Test case if a <see cref="Task"/> can be dependent upon another task. This test will check if the completion
+        /// of one task can trigger the activation of the <see cref="Task"/>.
         /// </summary>
-        /// <expected>The <see cref="Tracker"/> of the first <see cref="Task"/> will trigger a
-        /// <see cref="Tracker.success"/> event first. Afterwards, the <see cref="Tracker"/> of the second
-        /// <see cref="Task"/> triggers. This will happen no matter the order of the <see cref="Task"/>
-        /// <see cref="Task.Schedule(int)"/>.</expected>
+        /// <expected>The first task will trigger the start of the <see cref="Task"/>. Afterwards, the
+        /// <see cref="Tracker"/> of the  <see cref="Task"/> triggers. This order will happen no matter the the
+        /// scheduling order of the tasks.</expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestDependency()
         {
@@ -50,7 +50,7 @@ namespace Obscurum.TDT.Tests
             const string expected = "Hello World!";
             var actual = "";
 
-            Task task = new ExampleTask("");
+            Task task = new ExampleTask();
             
             // Act
             var tracker1 = task.Schedule();
@@ -71,6 +71,7 @@ namespace Obscurum.TDT.Tests
         /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
         /// <expected>The <see cref="Tracker"/> of the <see cref="Task"/> will trigger the
         /// <see cref="Tracker.exception"/> event when the <see cref="Task"/> throws an exception.</expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestException([Values(0, 1000)] int timeout)
         {

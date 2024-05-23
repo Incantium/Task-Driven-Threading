@@ -8,7 +8,6 @@ namespace Obscurum.TDT.Tests
     /// Test class for <see cref="Task{T}"/>.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
     internal sealed class ReturnTaskTest
     {
         /// <summary>
@@ -18,6 +17,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>The <see cref="Tracker{T}"/> of the <see cref="Task{T}"/> will trigger the
         /// <see cref="Tracker{T}.result"/> event when the <see cref="Task{T}"/> is completed with the expected result.
         /// </expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestTask([Values(0, 1000)] int timeout)
         {
@@ -38,14 +38,13 @@ namespace Obscurum.TDT.Tests
         }
         
         /// <summary>
-        /// Test case if a <see cref="Task{T}"/> can be dependent upon another <see cref="Task{T}"/>. This test will
-        /// check if the completion of one <see cref="Task{T}"/> can trigger the activation of another
-        /// <see cref="Task{T}"/>.
+        /// Test case if a <see cref="Task{T}"/> can be dependent upon another task. This test will check if the
+        /// completion of one task can trigger the activation of the <see cref="Task{T}"/>.
         /// </summary>
-        /// <expected>The <see cref="Tracker{T}"/> of the first <see cref="Task{T}"/> will trigger a
-        /// <see cref="Tracker{T}.result"/> event first. Afterwards, the <see cref="Tracker{T}"/> of the second
-        /// <see cref="Task{T}"/> triggers. This will happen no matter the order of the <see cref="Task{T}"/>
-        /// <see cref="Task{T}.Schedule(int)"/>.</expected>
+        /// <expected>The first task will trigger the start of the <see cref="Task{T}"/>. Afterwards, the
+        /// <see cref="Tracker{T}"/> of the  <see cref="MultiTask{T}"/> triggers. This order will happen no matter the
+        /// the scheduling order of the tasks.</expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestDependency()
         {
@@ -75,6 +74,7 @@ namespace Obscurum.TDT.Tests
         /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
         /// <expected>The <see cref="Tracker{T}"/> of the <see cref="Task{T}"/> will trigger the
         /// <see cref="Tracker{T}.exception"/> event when the <see cref="Task{T}"/> throws an exception.</expected>
+        /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestException([Values(0, 1000)] int timeout)
         {
