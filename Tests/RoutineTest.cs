@@ -4,7 +4,7 @@ using Obscurum.TDT.Tests.Examples;
 
 namespace Obscurum.TDT.Tests
 {
-    public class RoutineTest
+    internal sealed class RoutineTest
     {
         [Test, Repeat(10)]
         public void TestSetup()

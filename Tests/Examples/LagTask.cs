@@ -2,7 +2,7 @@
 
 namespace Obscurum.TDT.Tests.Examples
 {
-    public class LagTask : Task, Task<string>, MultiTask, MultiTask<string>
+    internal sealed class LagTask : Task, Task<string>, MultiTask, MultiTask<string>
     {
         private readonly int milliseconds;
 

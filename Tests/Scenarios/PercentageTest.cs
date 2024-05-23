@@ -4,7 +4,7 @@ using Obscurum.TDT.Tests.Examples;
 
 namespace Obscurum.TDT.Tests.Scenarios
 {
-    public class PercentageTest
+    internal sealed class PercentageTest
     {
         [Test, Repeat(10)]
         public void TestPercentage()

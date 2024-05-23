@@ -5,7 +5,7 @@ using Obscurum.TDT.Tests.Examples;
 
 namespace Obscurum.TDT.Tests
 {
-    public class ReturnMultiTaskTest
+    internal sealed class ReturnMultiTaskTest
     {
         private static readonly Random RANDOM = new();
         

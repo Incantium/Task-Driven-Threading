@@ -4,7 +4,7 @@ using Obscurum.TDT.Tests.Examples;
 
 namespace Obscurum.TDT.Tests.Scenarios
 {
-    public class TimeoutTest
+    internal sealed class TimeoutTest
     {
         [Test, Repeat(10)]
         public void TestTaskTimeout()

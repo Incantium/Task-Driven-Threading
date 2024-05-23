@@ -5,13 +5,14 @@ using NUnit.Framework;
 namespace Obscurum.TDT.Tests.Scenarios
 {
     /// <summary>
-    /// Test class for a scenario that uses many features of this package. This class includes:
+    /// Test class for a scenario that uses many of the features in this package. This class shows:
     /// <ul>
-    ///     <li>Multiple types of task interfaces (<see cref="Task{T}"/>, <see cref="MultiTask"/>) working together.
+    ///     <li>Multiple types of task interfaces (<see cref="Task"/>, <see cref="Task{T}"/>, <see cref="MultiTask"/>)
+    ///     working together.
     ///     </li>
     ///     <li>Task dependency.</li>
-    ///     <li>Dynamically calculated <see cref="MultiTask"/> single tasks amount.</li>
-    ///     <li><see cref="Task{T}"/> with a return type.</li>
+    ///     <li>Dynamically calculated <see cref="MultiTask"/>.</li>
+    ///     <li>A <see cref="Task{T}"/> with a return type.</li>
     ///     <li>Safe <see cref="Tracker.Wait(int)"/> with automatically timeout.</li>
     /// </ul>
     /// </summary>
@@ -54,13 +55,13 @@ namespace Obscurum.TDT.Tests.Scenarios
             
             public void Execute(int i)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(500);
                 numbers[i] *= numbers[i];
             }
         }
 
         /// <summary>
-        /// Class to take the sum of a <see cref="List{T}"/> of integers
+        /// Class to take the sum of a <see cref="List{T}"/> of integers.
         /// </summary>
         private class Sum : Task<int>
         {
@@ -78,6 +79,15 @@ namespace Obscurum.TDT.Tests.Scenarios
             }
         }
 
+        /// <summary>
+        /// Test case to use multiple different tasks in combination.
+        /// </summary>
+        /// <remarks>The maximum time of this test is 1 second. One single <see cref="Power"/> execution takes 500
+        /// milliseconds. Due to <see cref="Power"/> being a <see cref="MultiTask"/> is it still able to be
+        /// completed before timeout.</remarks>
+        /// <expected>This test will use the <see cref="Generator"/> to create a range of integers from 1. The
+        /// <see cref="Power"/> class will then take the power of each integer. The <see cref="Sum"/> class will as last
+        /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</expected>
         [Test]
         public void TestProduction()
         {

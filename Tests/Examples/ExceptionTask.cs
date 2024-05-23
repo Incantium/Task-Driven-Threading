@@ -2,7 +2,7 @@
 
 namespace Obscurum.TDT.Tests.Examples
 {
-    public class ExceptionTask : Task, Task<string>, MultiTask, MultiTask<string>
+    internal sealed class ExceptionTask : Task, Task<string>, MultiTask, MultiTask<string>
     {
         private readonly Exception e;
 

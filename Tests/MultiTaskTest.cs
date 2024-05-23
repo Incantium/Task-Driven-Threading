@@ -5,12 +5,25 @@ using Obscurum.TDT.Tests.Examples;
 
 namespace Obscurum.TDT.Tests
 {
-    public class MultiTaskTest
+    /// <summary>
+    /// Test class for <see cref="MultiTask"/>.
+    /// </summary>
+    /// <author>Vanaest</author>
+    /// <version>1.0.0</version>
+    internal sealed class MultiTaskTest
     {
         private static readonly Random RANDOM = new();
         
+        /// <summary>
+        /// Test case if a <see cref="MultiTask"/> can be started and completed with a <see cref="Tracker.success"/>.
+        /// </summary>
+        /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
+        /// <param name="batch">Test at different batch sizes.</param>
+        /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/> will trigger the
+        /// <see cref="Tracker.success"/> event when the all the single tasks of the <see cref="MultiTask"/> are
+        /// completed.</expected>
         [Test, Repeat(10)]
-        public void TestMultiTask([Values(0, 1000)] int timeout)
+        public void TestMultiTask([Range(1, 10)] int batch, [Values(0, 1000)] int timeout)
         {
             // Arrange
             var complete = false;
@@ -18,7 +31,7 @@ namespace Obscurum.TDT.Tests
             MultiTask task = new ExampleTask("");
 
             // Act
-            var tracker = task.Schedule(10, 2, timeout);
+            var tracker = task.Schedule(10, batch, timeout);
             tracker.success += () => complete = true;
             
             tracker.Wait(1000);
@@ -27,6 +40,13 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
 
+        /// <summary>
+        /// Test case if a <see cref="MultiTask"/> can be started and completed with a <see cref="Tracker.success"/>
+        /// with a random amount at runtime.
+        /// </summary>
+        /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/> will trigger the
+        /// <see cref="Tracker.success"/> event when the all the single tasks of the <see cref="MultiTask"/> are
+        /// completed.</expected>
         [Test, Repeat(10)]
         public void TestRandomMultiTask()
         {
@@ -45,11 +65,21 @@ namespace Obscurum.TDT.Tests
             Assert.IsTrue(complete);
         }
         
+        /// <summary>
+        /// Test case if a <see cref="MultiTask"/> can be dependent upon another <see cref="MultiTask"/>. This test will
+        /// check if the completion of one <see cref="MultiTask"/> can trigger the activation of another
+        /// <see cref="MultiTask"/>.
+        /// </summary>
+        /// <expected>The <see cref="Tracker"/> of the first <see cref="MultiTask"/> will trigger a
+        /// <see cref="Tracker.success"/> event first. Afterwards, the <see cref="Tracker"/> of the second
+        /// <see cref="Task"/> triggers. This will happen no matter the order of the <see cref="Task"/>
+        /// <see cref="Task.Schedule(int)"/>.</expected>
         [Test, Repeat(10)]
         public void TestDependency()
         {
             // Arrange
-            var complete = false;
+            const string expected = "Hello World!";
+            var actual = "";
 
             Task task1 = new ExampleTask("");
             MultiTask task2 = new ExampleTask("");
@@ -57,20 +87,31 @@ namespace Obscurum.TDT.Tests
             // Act
             var tracker1 = task1.Schedule();
             var tracker2 = task2.Schedule(10, tracker1, 2);
-            
-            tracker2.success += () => complete = true;
+
+            tracker1.success += () => actual += "Hello ";
+            tracker2.success += () => actual += "World!";
             
             tracker2.Wait(1000);
 
             // Assert
-            Assert.IsTrue(complete);
+            Assert.AreEqual(expected, actual);
         }
         
+        /// <summary>
+        /// Test case if a <see cref="MultiTask"/> can be dependent upon another <see cref="MultiTask"/> with a random
+        /// amount at runtime.. This test will check if the completion of one <see cref="MultiTask"/> can trigger the
+        /// activation of another <see cref="MultiTask"/>.
+        /// </summary>
+        /// <expected>The <see cref="Tracker"/> of the first <see cref="MultiTask"/> will trigger a
+        /// <see cref="Tracker.success"/> event first. Afterwards, the <see cref="Tracker"/> of the second
+        /// <see cref="Task"/> triggers. This will happen no matter the order of the <see cref="Task"/>
+        /// <see cref="Task.Schedule(int)"/>.</expected>
         [Test, Repeat(10)]
         public void TestRandomDependency()
         {
             // Arrange
-            var complete = false;
+            const string expected = "Hello World!";
+            var actual = "";
             var collection = new int[RANDOM.Next(2, 10)];
             
             Task task1 = new ExampleTask("");
@@ -79,14 +120,22 @@ namespace Obscurum.TDT.Tests
             // Act
             var tracker1 = task1.Schedule();
             var tracker2 = task2.Schedule(collection, tracker1, 2);
-            tracker2.success += () => complete = true;
+
+            tracker1.success += () => actual += "Hello ";
+            tracker2.success += () => actual += "World!";
             
             tracker2.Wait(1000);
 
             // Assert
-            Assert.IsTrue(complete);
+            Assert.AreEqual(expected, actual);
         }
         
+        /// <summary>
+        /// Test case if a <see cref="MultiTask"/> can be ended in a <see cref="Tracker.exception"/>.
+        /// </summary>
+        /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
+        /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/> will trigger the
+        /// <see cref="Tracker.exception"/> event when the <see cref="MultiTask"/> throws any one exception.</expected>
         [Test, Repeat(10)]
         public void TestException([Values(0, 1000)] int timeout)
         {

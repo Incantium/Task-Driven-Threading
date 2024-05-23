@@ -2,7 +2,7 @@
 
 namespace Obscurum.TDT.Tests.Examples
 {
-    public class ExampleRoutine : Routine
+    internal sealed class ExampleRoutine : Routine
     {
         public bool setup;
         public int cycles;
