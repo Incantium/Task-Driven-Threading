@@ -124,6 +124,8 @@ namespace Obscurum.TDT
             remove => _dependency -= value;
         }
 
+        private event Action<Exception, int> _trackers;
+
         /// <summary>
         /// Method to wait for the <see cref="Tracker"/> to be completed. This method will continue after everything has
         /// completed and all events has been called. For more safety, it is advised to use <see cref="Wait(int)"/>.
@@ -158,6 +160,38 @@ namespace Obscurum.TDT
             }
         }
 
+        /// <summary>
+        /// Method to join the current and another <see cref="Tracker"/> to a new <see cref="Tracker"/> that will listen
+        /// to both progressions.
+        /// </summary>
+        /// <param name="other">The other <see cref="Tracker"/>.</param>
+        /// <returns>A new <see cref="Tracker"/>.</returns>
+        public Tracker Join(Tracker other)
+        {
+            lock (key)
+            {
+                lock (other.key)
+                {
+                    var amount = this.amount + other.amount;
+                    var done = this.done + other.done;
+                    var completed = done >= amount;
+                    
+                    var join = new Tracker
+                    {
+                        amount = amount,
+                        done = done,
+                        complete = completed,
+                        final = completed
+                    };
+
+                    _trackers += join.Complete;
+                    other._trackers += join.Complete;
+                    
+                    return join;
+                }
+            }
+        }
+
         internal void Complete(Exception exception = null, int increment = 1)
         {
             lock (key)
@@ -171,6 +205,8 @@ namespace Obscurum.TDT
 
                 Final();
             }
+            
+            _trackers?.Invoke(exception, increment);
         }
 
         internal void Increment(int increment = 1)
