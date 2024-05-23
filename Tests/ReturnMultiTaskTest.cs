@@ -120,5 +120,31 @@ namespace Obscurum.TDT.Tests
             // Assert
             Assert.AreEqual(expected, actual);
         }
+        
+        /// <summary>
+        /// Test case if a <see cref="MultiTask{T}"/> can timeout.
+        /// </summary>
+        /// <expected>The <see cref="Tracker{T}"/> of the <see cref="MultiTask{T}"/>will trigger the
+        /// <see cref="Tracker{T}.exception"/> event when the <see cref="MultiTask{T}"/> has timed out after the
+        /// allotted time.</expected>
+        /// <version>1.0.0</version>
+        [Test, Repeat(10)]
+        public void TestTimeout()
+        {
+            // Arrange
+            var expected = new TimeoutException();
+            Exception actual = null;
+
+            MultiTask<string> task = new LagTask(500);
+
+            // Assert
+            var tracker = task.Schedule(2, 2, 100);
+            tracker.exception += e => actual = e[0];
+            
+            tracker.Wait(1000);
+
+            // Act
+            Assert.AreEqual(expected.GetType(), actual.GetType());
+        }
     }
 }

@@ -89,5 +89,31 @@ namespace Obscurum.TDT.Tests
             // Assert
             Assert.AreEqual(expected, actual);
         }
+        
+        /// <summary>
+        /// Test case if a <see cref="Task"/> can timeout.
+        /// </summary>
+        /// <expected>The <see cref="Tracker"/> of the <see cref="Task"/>will trigger the
+        /// <see cref="Tracker.exception"/> event when the <see cref="Task"/> has timed out after the allotted
+        /// time.</expected>
+        /// <version>1.0.0</version>
+        [Test, Repeat(10)]
+        public void TestTimeout()
+        {
+            // Arrange
+            var expected = new TimeoutException();
+            Exception actual = null;
+
+            Task task = new LagTask(500);
+
+            // Assert
+            var tracker = task.Schedule(100);
+            tracker.exception += e => actual = e[0];
+            
+            tracker.Wait(1000);
+
+            // Act
+            Assert.AreEqual(expected.GetType(), actual.GetType());
+        }
     }
 }
