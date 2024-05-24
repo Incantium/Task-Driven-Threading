@@ -84,9 +84,10 @@ namespace Obscurum.TDT.Tests.Scenarios
         /// <remarks>The maximum time of this test is 1 second. One single <see cref="Power"/> execution takes 500
         /// milliseconds. Due to <see cref="Power"/> being a <see cref="MultiTask"/> is it still able to be
         /// completed before timeout.</remarks>
-        /// <expected>This test will use the <see cref="Generator"/> to create a range of integers from 1. The
+        /// <method>This test will use the <see cref="Generator"/> to create a range of integers from 1 to 5. The
         /// <see cref="Power"/> class will then take the power of each integer. The <see cref="Sum"/> class will as last
-        /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</expected>
+        /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</method>
+        /// <expected>The mathematical formula described in this test will have an integer result of 55.</expected>
         /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestDemonstration()

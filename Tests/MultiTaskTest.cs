@@ -18,6 +18,8 @@ namespace Obscurum.TDT.Tests
         /// </summary>
         /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
         /// <param name="batch">Test at different batch sizes.</param>
+        /// <method>This task will schedule a <see cref="ExampleTask"/> as a <see cref="MultiTask"/>. It will then
+        /// <see cref="Tracker.Wait(int)"/> for its completion.</method>
         /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/> will trigger the
         /// <see cref="Tracker.success"/> event when the all the single tasks of the <see cref="MultiTask"/> are
         /// completed.</expected>
@@ -44,6 +46,8 @@ namespace Obscurum.TDT.Tests
         /// Test case if a <see cref="MultiTask"/> can be started and completed with a <see cref="Tracker.success"/>
         /// with a random amount at runtime.
         /// </summary>
+        /// <method>This task will schedule a <see cref="ExampleTask"/> as a <see cref="MultiTask"/> with a random
+        /// amount. It will then <see cref="Tracker.Wait(int)"/> for its completion.</method>
         /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/> will trigger the
         /// <see cref="Tracker.success"/> event when the all the single tasks of the <see cref="MultiTask"/> are
         /// completed.</expected>
@@ -70,9 +74,11 @@ namespace Obscurum.TDT.Tests
         /// Test case if a <see cref="MultiTask"/> can be dependent upon another task. This test will check if the
         /// completion of one task can trigger the activation of the <see cref="MultiTask"/>.
         /// </summary>
-        /// <expected>The first task will trigger the start of the <see cref="MultiTask"/>. Afterwards, the
-        /// <see cref="Tracker"/> of the  <see cref="MultiTask"/> triggers. This order will happen no matter the the
-        /// scheduling order of the tasks.</expected>
+        /// <method>This task will schedule two tasks at the same time, the first with a delay of 100 milliseconds, and
+        /// the second with a dependency on the first. The test will then <see cref="Tracker.Wait(int)"/> for both tasks
+        /// to be completed.</method>
+        /// <expected>This order of task <see cref="Tracker.success"/> will happen in the order of dependency, no matter
+        /// the scheduling order of the tasks.</expected>
         /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestDependency()
@@ -81,7 +87,7 @@ namespace Obscurum.TDT.Tests
             const string expected = "Hello World!";
             var actual = "";
 
-            Task task1 = new ExampleTask();
+            Task task1 = new LagTask(100);
             MultiTask task2 = new ExampleTask();
 
             // Act
@@ -101,9 +107,11 @@ namespace Obscurum.TDT.Tests
         /// Test case if a <see cref="MultiTask"/> can be dependent upon another task. This test will check if the
         /// completion of one task can trigger the activation of the <see cref="MultiTask"/>.
         /// </summary>
-        /// <expected>The first task will trigger the start of the <see cref="MultiTask"/>. Afterwards, the
-        /// <see cref="Tracker"/> of the  <see cref="MultiTask"/> triggers. This order will happen no matter the the
-        /// scheduling order of the tasks.</expected>
+        /// <method>This task will schedule two tasks at the same time, the first with a delay of 100 milliseconds, and
+        /// the second with a dependency on the first. The test will then <see cref="Tracker.Wait(int)"/> for both tasks
+        /// to be completed.</method>
+        /// <expected>This order of task <see cref="Tracker.success"/> will happen in the order of dependency, no matter
+        /// the scheduling order of the tasks.</expected>
         /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestRandomDependency()
@@ -113,7 +121,7 @@ namespace Obscurum.TDT.Tests
             var actual = "";
             var collection = new int[RANDOM.Next(2, 10)];
             
-            Task task1 = new ExampleTask();
+            Task task1 = new LagTask(100);
             MultiTask task2 = new ExampleTask();
 
             // Act
@@ -133,6 +141,9 @@ namespace Obscurum.TDT.Tests
         /// Test case if a <see cref="MultiTask"/> can be ended in a <see cref="Tracker.exception"/>.
         /// </summary>
         /// <param name="timeout">Test without and with a maximum timeout in milliseconds.</param>
+        /// <method>This test will start a <see cref="ExceptionTask"/> as a <see cref="MultiTask"/>. Then, the test will
+        /// <see cref="Tracker.Wait(int)"/> for the task to end.
+        /// </method>
         /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/> will trigger the
         /// <see cref="Tracker.exception"/> event when the <see cref="MultiTask"/> throws any one exception.</expected>
         /// <version>1.0.0</version>
@@ -160,9 +171,12 @@ namespace Obscurum.TDT.Tests
         /// <summary>
         /// Test case if a <see cref="MultiTask"/> can timeout.
         /// </summary>
+        /// <method>This test will create a <see cref="LagTask"/> as a <see cref="MultiTask"/> with a duration of
+        /// 500 milliseconds. It will then schedule it for a maximum time of 100 milliseconds. It then waits for the
+        /// task to end. </method>
         /// <expected>The <see cref="Tracker"/> of the <see cref="MultiTask"/>will trigger the
         /// <see cref="Tracker.exception"/> event when the <see cref="MultiTask"/> has timed out after the allotted
-        /// time.</expected>
+        /// time run out.</expected>
         /// <version>1.0.0</version>
         [Test, Repeat(10)]
         public void TestTimeout()
