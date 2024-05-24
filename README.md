@@ -3,8 +3,8 @@
 Task Driven Threading is a simple, yet lightweight alternative to 
 [Unity's Job System](https://docs.unity3d.com/Manual/JobSystem.html) that lets you execute your code on other threads, 
 so your game can run smoothly and without issues. This package includes a wide selection of different ways to set up 
-your threads as tasks that can execute your code in any way you want, with a multitude of handy tools to keep track of the 
-threads.
+your threads as tasks that can execute your code in any way you want, with a multitude of handy tools to keep track of 
+the threads.
 
 ## Features
 
@@ -31,3 +31,55 @@ satisfy one of the following one or more of the following requirements:
 3. Do you have many small pieces of code that, together, take a moderate to very long to execute?
 
 ## Getting started
+
+### Creating a task
+
+The first step to create a thread is to define its work. This can be done by implementing one of the many interfaces 
+this package includes. For this example, we will use the [Task](Runtime/Task.cs) and its return type equivalent.
+
+The generic version of the [Task](Runtime/Task.cs) interface is especially useful to create ways to 
+[handle](#keeping-track-of-your-threads) the results of your thread in asynchronous way.
+
+```csharp
+using Obscurum.TDT;
+
+// Task adding two floating point values together
+public class MyTask : Task<int>
+{
+    public float a;
+    public float b;
+    
+    public int Execute() 
+    {
+        return a + b;
+    }
+}
+```
+
+### Starting a task
+
+After the implementation of your task, it is possible to execute these upon their own threads. There are multiple 
+different ways to start a task, even with [task dependencies](#task-dependencies) included. For this example, we will 
+use the simpler variant compatible with the task as described above.
+
+```csharp
+using Obscurum.TDT;
+
+public class Main
+{
+    public void Method() {
+    }
+}
+```
+
+### Keeping track of your threads
+
+### Multitasking
+
+### Task dependencies
+
+### Batching
+
+### Routine tasks
+
+### Waiting
