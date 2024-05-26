@@ -1,0 +1,13 @@
+{
+  "name": "com.obscurum.tdt",
+  "version": "0.1.0",
+  "displayName": "Task Driven Threading",
+  "description": "A light-weight alternative to multithreading. This package include options for single tasks, multitasks, and routine threading.",
+  "unity": "2019.1",
+  "documentationUrl": "https://github.com/Vanaest/Task-Driven-Threading?tab=readme-ov-file",
+  "licensesUrl": "https://github.com/Vanaest/Task-Driven-Threading?tab=MIT-1-ov-file",
+  "author": {
+    "name": "Vanaest",
+    "url": "https://github.com/Vanaest"
+  }
+}
