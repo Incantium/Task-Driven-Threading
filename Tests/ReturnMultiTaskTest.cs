@@ -24,7 +24,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>The <see cref="Tracker{T}"/> of the <see cref="MultiTask{T}"/> will trigger the
         /// <see cref="Tracker{T}.success"/> event when the all the single tasks of the <see cref="MultiTask{T}"/> are
         /// completed.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestMultiTask([Range(1, 5)] int batch, [Values(0, 1000)] int timeout)
         {
@@ -55,7 +55,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>The <see cref="Tracker{T}"/> of the <see cref="MultiTask{T}"/> will trigger the
         /// <see cref="Tracker{T}.success"/> event when the all the single tasks of the <see cref="MultiTask{T}"/> are
         /// completed.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestRandomMultiTask()
         {
@@ -89,7 +89,7 @@ namespace Obscurum.TDT.Tests
         /// to be completed.</method>
         /// <expected>This order of task <see cref="Tracker{T}.success"/> will happen in the order of dependency, no matter
         /// the scheduling order of the tasks.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestDependency()
         {
@@ -123,7 +123,7 @@ namespace Obscurum.TDT.Tests
         /// task to be completed.</method>
         /// <expected>This order of task <see cref="Tracker{T}.success"/> will happen in the order of dependency, no
         /// matter the scheduling order of the tasks.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestRandomDependency()
         {
@@ -160,7 +160,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>The <see cref="Tracker{T}"/> of the <see cref="MultiTask{T}"/> will trigger the
         /// <see cref="Tracker{T}.exception"/> event when the <see cref="MultiTask{T}"/> throws any one exception.
         /// </expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestException([Values(0, 1000)] int timeout)
         {
@@ -191,7 +191,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>The <see cref="Tracker{T}"/> of the <see cref="MultiTask{T}"/>will trigger the
         /// <see cref="Tracker{T}.exception"/> event when the <see cref="MultiTask{T}"/> has timed out after the
         /// allotted time run out.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestTimeout()
         {

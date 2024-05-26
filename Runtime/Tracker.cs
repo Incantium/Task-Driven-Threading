@@ -10,7 +10,7 @@ namespace Obscurum.TDT
     /// <typeparam name="T">The <see cref="result"/> type of the task.
     /// </typeparam>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public sealed class Tracker<T> : Tracker
     {
         private T outcome;
@@ -55,7 +55,7 @@ namespace Obscurum.TDT
     /// Class to keep track of a task for completion.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public class Tracker
     {
         private readonly List<Exception> exceptions = new();

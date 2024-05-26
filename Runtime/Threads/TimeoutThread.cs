@@ -7,7 +7,7 @@ namespace Obscurum.TDT.Threads
     /// Class that represents a thread that will automatically <see cref="timeout"/> after a specified duration.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public class TimeoutThread
     {
         private readonly ThreadStart method;

@@ -8,7 +8,7 @@ namespace Obscurum.TDT
     /// </summary>
     /// <typeparam name="T">The return typing of the task.</typeparam>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public interface MultiTask<out T>
     {
         /// <summary>
@@ -23,7 +23,7 @@ namespace Obscurum.TDT
     /// Interface that represents multiple likewise tasks with no return type.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public interface MultiTask
     {
         /// <summary>
@@ -38,7 +38,7 @@ namespace Obscurum.TDT
     /// execution.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public static class MultiTaskScheduler
     {
         /// <summary>

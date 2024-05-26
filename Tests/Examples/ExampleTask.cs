@@ -6,7 +6,7 @@
     /// the specified <see cref="message"/> if need be upon completion.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal sealed class ExampleTask : Task, Task<string>, MultiTask, MultiTask<string>
     {
         private readonly string message;

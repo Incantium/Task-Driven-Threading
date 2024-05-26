@@ -18,7 +18,7 @@ namespace Obscurum.TDT.Tests
         /// <see cref="Tracker.Wait(int)"/> for its completion.</method>
         /// <expected>The <see cref="Tracker"/> of the <see cref="Task"/> will trigger the <see cref="Tracker.success"/>
         /// event when the all the single tasks of the <see cref="Task"/> are completed.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestTask([Values(0, 1000)] int timeout)
         {
@@ -46,7 +46,7 @@ namespace Obscurum.TDT.Tests
         /// to be completed.</method>
         /// <expected>This order of task <see cref="Tracker.success"/> will happen in the order of dependency, no matter
         /// the scheduling order of the tasks.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestDependency()
         {
@@ -78,7 +78,7 @@ namespace Obscurum.TDT.Tests
         /// </method>
         /// <expected>The <see cref="Tracker"/> of the <see cref="Task"/> will trigger the
         /// <see cref="Tracker.exception"/> event when the <see cref="Task"/> throws any one exception.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestException([Values(0, 1000)] int timeout)
         {
@@ -107,7 +107,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>The <see cref="Tracker"/> of the <see cref="Task"/>will trigger the
         /// <see cref="Tracker.exception"/> event when the <see cref="Task"/> has timed out after the allotted
         /// time run out.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestTimeout()
         {

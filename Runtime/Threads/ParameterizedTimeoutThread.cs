@@ -8,7 +8,7 @@ namespace Obscurum.TDT.Threads
     /// duration.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public class ParameterizedTimeoutThread
     {
         private readonly ParameterizedThreadStart method;

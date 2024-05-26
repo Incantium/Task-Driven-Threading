@@ -8,7 +8,7 @@ namespace Obscurum.TDT.Tests.Examples
     /// (increasingly) artificial lag for the amount of <see cref="milliseconds"/> specified upon execution.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal sealed class LagTask : Task, Task<string>, MultiTask, MultiTask<string>
     {
         private readonly int milliseconds;

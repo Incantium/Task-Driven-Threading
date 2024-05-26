@@ -8,7 +8,7 @@ namespace Obscurum.TDT.Runners
     /// </summary>
     /// <typeparam name="T">The typing of the <see cref="Task{T}"/>.</typeparam>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal class Runner<T> : BaseRunner
     {
         private readonly Task<T> task;
@@ -50,7 +50,7 @@ namespace Obscurum.TDT.Runners
     /// Class able to run a <see cref="Task"/> on a separate <see cref="Thread"/>.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal class Runner : BaseRunner
     { 
         private readonly Task task;

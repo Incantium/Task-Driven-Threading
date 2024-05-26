@@ -6,7 +6,7 @@ namespace Obscurum.TDT.Tests.Examples
     /// Class that represents an implementation of the <see cref="Routine"/> class for testing purposes.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal sealed class ExampleRoutine : Routine
     {
         /// <summary>

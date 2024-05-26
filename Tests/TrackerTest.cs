@@ -19,7 +19,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>At the beginning of the <see cref="MultiTask"/>, it is expected the progression to be 0%. After
         /// 100+ milliseconds, the <see cref="Tracker.percentage"/> is expected to be 50%. And at the end of the
         /// <see cref="MultiTask"/>, it is expected to be 100%.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestPercentage()
         {
@@ -57,7 +57,7 @@ namespace Obscurum.TDT.Tests
         /// <expected>It is expected that the <see cref="Tracker"/> created from two other tasks will update accordingly
         /// and create a <see cref="Tracker.success"/> event when both tasks have completed, no matter the order of task
         /// completion.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestJoin([Values(0, 200)] int delay1, [Values(0, 200)] int delay2)
         {

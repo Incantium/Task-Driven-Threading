@@ -7,7 +7,7 @@ namespace Obscurum.TDT
     /// </summary>
     /// <typeparam name="T">The return typing of the task.</typeparam>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public interface Task<out T>
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace Obscurum.TDT
     /// Class that represents a single task with no return type.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public interface Task
     { 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Obscurum.TDT
     /// Extension class for scheduling the <see cref="Task"/> and <see cref="Task{T}"/> interface for execution.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public static class TaskScheduler
     {
         /// <summary>

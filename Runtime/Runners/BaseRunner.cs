@@ -1,10 +1,10 @@
 ﻿namespace Obscurum.TDT.Runners
 {
     /// <summary>
-    /// Interface for classes that can run <see cref="Tasks.Task"/> or <see cref="Tasks.Task{T}"/> on a separate thread.
+    /// Interface for classes that can run <see cref="Task"/> or <see cref="Task{T}"/> on a separate thread.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal interface BaseRunner
     {
         /// <summary>

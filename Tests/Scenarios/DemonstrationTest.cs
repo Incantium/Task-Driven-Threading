@@ -88,7 +88,7 @@ namespace Obscurum.TDT.Tests.Scenarios
         /// <see cref="Power"/> class will then take the power of each integer. The <see cref="Sum"/> class will as last
         /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</method>
         /// <expected>The mathematical formula described in this test will have an integer result of 55.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestDemonstration()
         {

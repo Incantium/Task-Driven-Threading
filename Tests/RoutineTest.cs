@@ -18,7 +18,7 @@ namespace Obscurum.TDT.Tests
         /// <method>This test will <see cref="Routine.Start"/> and <see cref="Routine.Stop"/> an
         /// <see cref="ExampleRoutine"/> one after another.</method>
         /// <expected>The <see cref="ExampleRoutine.setup"/> variable is set to true.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestSetup()
         {
@@ -41,7 +41,7 @@ namespace Obscurum.TDT.Tests
         /// It is then run for 450 milliseconds before being stopped.</method>
         /// <expected>The <see cref="ExampleRoutine.cycles"/> is expected to be 5 (as any <see cref="Routine"/> will
         /// start at 0 ms).</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestUpdate()
         {
@@ -69,7 +69,7 @@ namespace Obscurum.TDT.Tests
         /// <see cref="ExampleRoutine"/> to <see cref="Routine.Crash"/>.</method>
         /// <expected>The <see cref="ExampleRoutine.crashed"/> variable will contain a <see cref="TimeoutException"/>.
         /// </expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestCrash()
         {
@@ -99,7 +99,7 @@ namespace Obscurum.TDT.Tests
         /// immediately afterwards. Then, the test will wait an additional of 100 milliseconds to give the
         /// <see cref="ExampleRoutine"/> to <see cref="Routine.Shutdown"/>.</method>
         /// <expected>The <see cref="ExampleRoutine.shutdown"/> variable will be set to true.</expected>
-        /// <version>1.0.0</version>
+        /// <version>0.1.0</version>
         [Test, Repeat(10)]
         public void TestShutdown()
         {

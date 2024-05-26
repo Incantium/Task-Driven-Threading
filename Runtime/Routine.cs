@@ -16,7 +16,7 @@ namespace Obscurum.TDT
     /// <see cref="interval"/> of about 17 seconds.</para>
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     public class Routine
     {
         private Timer timer;

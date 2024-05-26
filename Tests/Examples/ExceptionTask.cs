@@ -8,7 +8,7 @@ namespace Obscurum.TDT.Tests.Examples
     /// the specified <see cref="exception"/> upon being executed.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal sealed class ExceptionTask : Task, Task<string>, MultiTask, MultiTask<string>
     {
         private readonly Exception exception;

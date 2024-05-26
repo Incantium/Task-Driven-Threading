@@ -8,7 +8,7 @@ namespace Obscurum.TDT.Runners
     /// </summary>
     /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal class MultiTimeoutRunner<T> : BaseMultiRunner
     {
         private readonly MultiTask<T> task;
@@ -75,7 +75,7 @@ namespace Obscurum.TDT.Runners
     /// Class able to run a <see cref="MultiTask"/> on a separate <see cref="ParameterizedTimeoutThread"/>.
     /// </summary>
     /// <author>Vanaest</author>
-    /// <version>1.0.0</version>
+    /// <version>0.1.0</version>
     internal class MultiTimeoutRunner : BaseMultiRunner
     {
         private readonly MultiTask task;
