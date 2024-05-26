@@ -8,7 +8,7 @@ namespace Obscurum.TDT.Threads
     /// </summary>
     /// <author>Vanaest</author>
     /// <version>0.1.0</version>
-    public class TimeoutThread
+    public sealed class TimeoutThread
     {
         private readonly ThreadStart method;
         private readonly CancellationTokenSource source;

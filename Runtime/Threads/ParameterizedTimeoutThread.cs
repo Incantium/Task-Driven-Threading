@@ -9,7 +9,7 @@ namespace Obscurum.TDT.Threads
     /// </summary>
     /// <author>Vanaest</author>
     /// <version>0.1.0</version>
-    public class ParameterizedTimeoutThread
+    public sealed class ParameterizedTimeoutThread
     {
         private readonly ParameterizedThreadStart method;
         private readonly CancellationTokenSource source;
