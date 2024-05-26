@@ -133,6 +133,7 @@ namespace Obscurum.TDT
         /// <remarks>This method will stall the current thread for executing until the <see cref="Tracker"/> has been
         /// completed.</remarks>
         /// <seealso cref="Wait(int)"/>
+        [Obsolete("Use events for async callback instead of waiting for the task to be completed.")]
         public void Wait()
         {
             while (!final) {}
@@ -146,6 +147,7 @@ namespace Obscurum.TDT
         /// resolution.</param>
         /// <exception cref="TimeoutException">Thrown when the allotted time has run out without a resolution.
         /// </exception>
+        [Obsolete("Use events for async callback instead of waiting for the task to be completed.")]
         public void Wait(int milliseconds)
         {
             var elapsed = false;

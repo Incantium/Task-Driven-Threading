@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿#pragma warning disable CS0618 // Type or member is obsolete
+
+using System.Threading;
 using NUnit.Framework;
 using Obscurum.TDT.Tests.Examples;
 
