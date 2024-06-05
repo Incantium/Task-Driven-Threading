@@ -1,14 +1,12 @@
 ﻿using System.Collections;
-using Obscurum.TDT.Runners;
+using Incantium.TDT.Runners;
 
-namespace Obscurum.TDT
+namespace Incantium.TDT
 {
     /// <summary>
     /// Interface that represents multiple likewise tasks with return type <see cref="T"/>.
     /// </summary>
     /// <typeparam name="T">The return typing of the task.</typeparam>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public interface MultiTask<out T>
     {
         /// <summary>
@@ -16,20 +14,20 @@ namespace Obscurum.TDT
         /// </summary>
         /// <param name="i">The index of the current single task in the <see cref="MultiTask{T}"/>.</param>
         /// <returns>The return value of the <see cref="MultiTask{T}"/>.</returns>
+        /// <since>0.1.0</since>
         T Execute(int i);
     }
     
     /// <summary>
     /// Interface that represents multiple likewise tasks with no return type.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public interface MultiTask
     {
         /// <summary>
         /// Method called to execute the <see cref="MultiTask"/>.
         /// </summary>
         /// <param name="i">The index of the current single task in the <see cref="MultiTask"/>.</param>
+        /// <since>0.1.0</since>
         void Execute(int i);
     }
 
@@ -37,8 +35,6 @@ namespace Obscurum.TDT
     /// Extension class for scheduling the <see cref="MultiTask"/> and <see cref="MultiTask{T}"/> interface for
     /// execution.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public static class MultiTaskScheduler
     {
         /// <summary>
@@ -53,6 +49,7 @@ namespace Obscurum.TDT
         /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
         /// <returns>A <see cref="Tracker{T}"/> to keep track of the progress of the <see cref="MultiTask{T}"/>.
         /// </returns>
+        /// <since>0.1.0</since>
         public static Tracker<T[]> Schedule<T>(
             this MultiTask<T> task,
             int amount, 
@@ -83,6 +80,7 @@ namespace Obscurum.TDT
         /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
         /// <returns>A <see cref="Tracker{T}"/> to keep track of the progress of the <see cref="MultiTask{T}"/>.
         /// </returns>
+        /// <since>0.1.0</since>
         public static Tracker<T[]> Schedule<T>(
             this MultiTask<T> task,
             ICollection amount,
@@ -113,6 +111,7 @@ namespace Obscurum.TDT
         /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
         /// <returns>A <see cref="Tracker{T}"/> to keep track of the progress of the <see cref="MultiTask{T}"/>.
         /// </returns>
+        /// <since>0.1.0</since>
         public static Tracker<T[]> Schedule<T>(
             this MultiTask<T> task,
             int amount, 
@@ -145,6 +144,7 @@ namespace Obscurum.TDT
         /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
         /// <returns>A <see cref="Tracker{T}"/> to keep track of the progress of the <see cref="MultiTask{T}"/>.
         /// </returns>
+        /// <since>0.1.0</since>
         public static Tracker<T[]> Schedule<T>(
             this MultiTask<T> task,
             ICollection amount,
@@ -173,6 +173,7 @@ namespace Obscurum.TDT
         /// <param name="timeout">The maximum allotted time for a <see cref="batch"/> of single tasks to take in
         /// milliseconds.</param>
         /// <returns>A <see cref="Tracker"/> to keep track of the progress of the <see cref="MultiTask"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker Schedule(
             this MultiTask task,
             int amount, 
@@ -201,6 +202,7 @@ namespace Obscurum.TDT
         /// <param name="timeout">The maximum allotted time for a <see cref="batch"/> of single tasks to take in
         /// milliseconds.</param>
         /// <returns>A <see cref="Tracker"/> to keep track of the progress of the <see cref="MultiTask"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker Schedule(
             this MultiTask task,
             ICollection amount,
@@ -229,6 +231,7 @@ namespace Obscurum.TDT
         /// <param name="timeout">The maximum allotted time for a <see cref="batch"/> of single tasks to take in
         /// milliseconds.</param>
         /// <returns>A <see cref="Tracker"/> to keep track of the progress of the <see cref="MultiTask"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker Schedule(
             this MultiTask task,
             int amount, 
@@ -259,6 +262,7 @@ namespace Obscurum.TDT
         /// <param name="timeout">The maximum allotted time for a <see cref="batch"/> of single tasks to take in
         /// milliseconds.</param>
         /// <returns>A <see cref="Tracker"/> to keep track of the progress of the <see cref="MultiTask"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker Schedule(
             this MultiTask task,
             ICollection amount,

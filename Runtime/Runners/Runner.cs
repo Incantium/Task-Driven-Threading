@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading;
 
-namespace Obscurum.TDT.Runners
+namespace Incantium.TDT.Runners
 {
     /// <summary>
     /// Class able to run a <see cref="Task{T}"/> on a separate <see cref="Thread"/>.
     /// </summary>
     /// <typeparam name="T">The typing of the <see cref="Task{T}"/>.</typeparam>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal class Runner<T> : BaseRunner
     {
         private readonly Task<T> task;
@@ -19,6 +17,7 @@ namespace Obscurum.TDT.Runners
         /// </summary>
         /// <param name="task">The <see cref="Task{T}"/> to run.</param>
         /// <param name="tracker">The <see cref="Tracker{T}"/> to update when completed.</param>
+        /// <since>0.1.0</since>
         internal Runner(Task<T> task, Tracker<T> tracker)
         {
             this.task = task;
@@ -49,8 +48,6 @@ namespace Obscurum.TDT.Runners
     /// <summary>
     /// Class able to run a <see cref="Task"/> on a separate <see cref="Thread"/>.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal class Runner : BaseRunner
     { 
         private readonly Task task;
@@ -61,6 +58,7 @@ namespace Obscurum.TDT.Runners
         /// </summary>
         /// <param name="task">The <see cref="Task"/> to run.</param>
         /// <param name="tracker">The <see cref="Tracker"/> to update when completed.</param>
+        /// <since>0.1.0</since>
         internal Runner(Task task, Tracker tracker)
         {
             this.task = task;

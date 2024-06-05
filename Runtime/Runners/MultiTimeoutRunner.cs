@@ -1,14 +1,12 @@
 ﻿using System;
-using Obscurum.TDT.Threads;
+using Incantium.TDT.Threads;
 
-namespace Obscurum.TDT.Runners
+namespace Incantium.TDT.Runners
 {
     /// <summary>
     /// Class able to run a <see cref="MultiTask{T}"/> on a separate <see cref="ParameterizedTimeoutThread"/>.
     /// </summary>
     /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal class MultiTimeoutRunner<T> : BaseMultiRunner
     {
         private readonly MultiTask<T> task;
@@ -26,6 +24,7 @@ namespace Obscurum.TDT.Runners
         /// <param name="tracker">The <see cref="Tracker{T}"/> to update when completed.</param>
         /// <param name="batch">The amount of tasks for the <see cref="MultiTask{T}"/>.</param>
         /// <param name="timeout">The maximum amount of milliseconds this <see cref="MultiTask{T}"/> may take.</param>
+        /// <since>0.1.0</since>
         internal MultiTimeoutRunner(MultiTask<T> task, Tracker<T[]> tracker, int batch = 1, int timeout = 60000)
         {
             this.task = task;
@@ -74,8 +73,6 @@ namespace Obscurum.TDT.Runners
     /// <summary>
     /// Class able to run a <see cref="MultiTask"/> on a separate <see cref="ParameterizedTimeoutThread"/>.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal class MultiTimeoutRunner : BaseMultiRunner
     {
         private readonly MultiTask task;
@@ -92,6 +89,7 @@ namespace Obscurum.TDT.Runners
         /// <param name="tracker">The <see cref="Tracker"/> to update when completed.</param>
         /// <param name="batch">The amount of tasks for the <see cref="MultiTask"/>.</param>
         /// <param name="timeout">The maximum amount of milliseconds this <see cref="MultiTask"/> may take.</param>
+        /// <since>0.1.0</since>
         internal MultiTimeoutRunner(MultiTask task, Tracker tracker, int batch = 1, int timeout = 60000)
         {
             this.task = task;

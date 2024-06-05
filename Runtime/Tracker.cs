@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Timers;
 
-namespace Obscurum.TDT
+namespace Incantium.TDT
 {
     /// <summary>
     /// Class to keep track of a task for completion.
     /// </summary>
     /// <typeparam name="T">The <see cref="result"/> type of the task.
     /// </typeparam>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public sealed class Tracker<T> : Tracker
     {
         private T outcome;
@@ -21,6 +19,7 @@ namespace Obscurum.TDT
         /// </summary>
         /// <remarks>If the <see cref="Tracker{T}"/> has already completed, the added event will be immediately called.
         /// </remarks>
+        /// <since>0.1.0</since>
         public event Action<T> result
         {
             add
@@ -54,8 +53,6 @@ namespace Obscurum.TDT
     /// <summary>
     /// Class to keep track of a task for completion.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public class Tracker
     {
         private readonly List<Exception> exceptions = new();
@@ -68,6 +65,7 @@ namespace Obscurum.TDT
         /// <summary>
         /// Property indicating the progression of the <see cref="Tracker"/> from 0 to 100%.
         /// </summary>
+        /// <since>0.1.0</since>
         public float percentage => 100f * done / amount;
         
         private event Action _success; 
@@ -77,6 +75,7 @@ namespace Obscurum.TDT
         /// </summary>
         /// <remarks>If the <see cref="Tracker"/> has already completed, the added event will be immediately called.
         /// </remarks>
+        /// <since>0.1.0</since>
         public event Action success
         {
             add
@@ -96,6 +95,7 @@ namespace Obscurum.TDT
         /// </summary>
         /// <remarks>If the <see cref="Tracker"/> has already completed, the added event will be immediately called.
         /// </remarks>
+        /// <since>0.1.0</since>
         public event Action<List<Exception>> exception
         {
             add
@@ -133,6 +133,7 @@ namespace Obscurum.TDT
         /// <remarks>This method will stall the current thread for executing until the <see cref="Tracker"/> has been
         /// completed.</remarks>
         /// <seealso cref="Wait(int)"/>
+        /// <since>0.1.0</since>
         [Obsolete("Use events for async callback instead of waiting for the task to be completed.")]
         public void Wait()
         {
@@ -147,6 +148,7 @@ namespace Obscurum.TDT
         /// resolution.</param>
         /// <exception cref="TimeoutException">Thrown when the allotted time has run out without a resolution.
         /// </exception>
+        /// <since>0.1.0</since>
         [Obsolete("Use events for async callback instead of waiting for the task to be completed.")]
         public void Wait(int milliseconds)
         {
@@ -168,6 +170,7 @@ namespace Obscurum.TDT
         /// </summary>
         /// <param name="other">The other <see cref="Tracker"/>.</param>
         /// <returns>A new <see cref="Tracker"/>.</returns>
+        /// <since>0.1.0</since>
         public Tracker Join(Tracker other)
         {
             lock (key)

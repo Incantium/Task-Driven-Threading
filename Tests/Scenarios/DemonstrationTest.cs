@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 
-namespace Obscurum.TDT.Tests.Scenarios
+namespace Incantium.TDT.Tests.Scenarios
 {
     /// <summary>
     /// Test class to demonstrate many of the features in this package. This class shows:
@@ -18,7 +18,6 @@ namespace Obscurum.TDT.Tests.Scenarios
     ///     <li>Safe <see cref="Tracker.Wait(int)"/> with automatically timeout.</li>
     /// </ul>
     /// </summary>
-    /// <author>Vanaest</author>
     internal sealed class DemonstrationTest
     {
         /// <summary>
@@ -90,7 +89,7 @@ namespace Obscurum.TDT.Tests.Scenarios
         /// <see cref="Power"/> class will then take the power of each integer. The <see cref="Sum"/> class will as last
         /// take the sum of all the power integers, giving a <see cref="Tracker{T}.result"/>.</method>
         /// <expected>The mathematical formula described in this test will have an integer result of 55.</expected>
-        /// <version>0.1.0</version>
+        /// <since>0.1.0</since>
         [Test, Repeat(10)]
         public void TestDemonstration()
         {

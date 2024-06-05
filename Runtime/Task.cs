@@ -1,40 +1,36 @@
-﻿using Obscurum.TDT.Runners;
+﻿using Incantium.TDT.Runners;
 
-namespace Obscurum.TDT
+namespace Incantium.TDT
 {
     /// <summary>
     /// Interface that represents a single task with return type <see cref="T"/>.
     /// </summary>
     /// <typeparam name="T">The return typing of the task.</typeparam>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public interface Task<out T>
     {
         /// <summary>
         /// Method called to execute the <see cref="Task{T}"/>.
         /// </summary>
         /// <returns>The return value of the <see cref="Task{T}"/>.</returns>
+        /// <since>0.1.0</since>
         T Execute();
     }
     
     /// <summary>
     /// Class that represents a single task with no return type.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public interface Task
     { 
         /// <summary>
         /// Method called to execute the <see cref="Task"/>.
         /// </summary>
+        /// <since>0.1.0</since>
         void Execute();
     }
     
     /// <summary>
     /// Extension class for scheduling the <see cref="Task"/> and <see cref="Task{T}"/> interface for execution.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public static class TaskScheduler
     {
         /// <summary>
@@ -45,6 +41,7 @@ namespace Obscurum.TDT
         /// </param>
         /// <typeparam name="T">The typing of the <see cref="Task{T}"/>.</typeparam>
         /// <returns>A <see cref="Tracker{T}"/> to keep track of the progress of the <see cref="Task{T}"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker<T> Schedule<T>(
             this Task<T> task,
             int timeout = 0)
@@ -69,6 +66,7 @@ namespace Obscurum.TDT
         /// </param>
         /// <typeparam name="T">The typing of the <see cref="Task{T}"/>.</typeparam>
         /// <returns>A <see cref="Tracker{T}"/> to keep track of the progress of the <see cref="Task{T}"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker<T> Schedule<T>(
             this Task<T> task,
             Tracker dependency,
@@ -92,6 +90,7 @@ namespace Obscurum.TDT
         /// <param name="timeout">The maximum allotted time for the <see cref="Task"/> to take in milliseconds.
         /// </param>
         /// <returns>A <see cref="Tracker"/> to keep track of the progress of the <see cref="Task"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker Schedule(
             this Task task,
             int timeout = 0)
@@ -115,6 +114,7 @@ namespace Obscurum.TDT
         /// <param name="timeout">The maximum allotted time for the <see cref="Task"/> to take in milliseconds.
         /// </param>
         /// <returns>A <see cref="Tracker"/> to keep track of the progress of the <see cref="Task"/>.</returns>
+        /// <since>0.1.0</since>
         public static Tracker Schedule(
             this Task task,
             Tracker dependency,

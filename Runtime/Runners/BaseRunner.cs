@@ -1,15 +1,14 @@
-﻿namespace Obscurum.TDT.Runners
+﻿namespace Incantium.TDT.Runners
 {
     /// <summary>
-    /// Interface for classes that can run <see cref="Task"/> or <see cref="Task{T}"/> on a separate thread.
+    /// Interface for classes that can run <see cref="Task{T}"/> or <see cref="Task"/> on a separate thread.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal interface BaseRunner
     {
         /// <summary>
         /// Method to start the <see cref="BaseRunner"/>.
         /// </summary>
+        /// <since>0.1.0</since>
         void Start();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Obscurum.TDT
+namespace Incantium.TDT
 {
     /// <summary>
     /// <para>A <see cref="Routine"/> transforms any class into a continues runnable <see cref="timer"/>. Implement the
@@ -15,8 +15,6 @@ namespace Obscurum.TDT
     /// speed. If no clock speed is specified, the <see cref="Routine"/> will run at 60 ticks per second, or within an
     /// <see cref="interval"/> of about 17 seconds.</para>
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public class Routine
     {
         private Timer timer;
@@ -29,12 +27,14 @@ namespace Obscurum.TDT
         /// before the continuous <see cref="Update"/>.
         /// </summary>
         /// <seealso cref="SetTps"/>
+        /// <since>0.1.0</since>
         protected virtual void Setup() {}
         
         /// <summary>
         /// Method endpoint called to update the <see cref="Routine"/>. This method is called each
         /// <see cref="interval"/>. Implement this method to continuous update after its <see cref="Setup"/>.
         /// </summary>
+        /// <since>0.1.0</since>
         protected virtual void Update() {}
         
         /// <summary>
@@ -43,12 +43,14 @@ namespace Obscurum.TDT
         /// <see cref="Routine"/> again.
         /// </summary>
         /// <param name="e">The <see cref="Exception"/> thrown.</param>
+        /// <since>0.1.0</since>
         protected virtual void Crash(Exception e) {}
         
         /// <summary>
         /// Endpoint called to after a <see cref="Stop"/> or <see cref="Crash"/> to shutdown the <see cref="Routine"/>.
         /// Implement this method to shutdown the <see cref="Routine"/> by releasing all necessary assets and data.
         /// </summary>
+        /// <since>0.1.0</since>
         protected virtual void Shutdown() {}
         
         /// <summary>
@@ -60,6 +62,7 @@ namespace Obscurum.TDT
         /// <remarks>Once the <see cref="Routine"/> has <see cref="Start"/>, subsequently calling this method will do
         /// nothing.
         /// </remarks>
+        /// <since>0.1.0</since>
         public void Start()
         {
             if (running) return;
@@ -73,6 +76,7 @@ namespace Obscurum.TDT
         /// Method to stop the <see cref="Routine"/>. This will stop after completing its last <see cref="Update"/> and
         /// the <see cref="Shutdown"/>.
         /// </summary>
+        /// <since>0.1.0</since>
         public void Stop() => running = false;
         
         private void Run(object _)
@@ -101,6 +105,7 @@ namespace Obscurum.TDT
         /// </param>
         /// <remarks>This new <see cref="interval"/> will only go into effect after a fresh <see cref="Start"/>.
         /// </remarks>
+        /// <since>0.1.0</since>
         public void SetInterval(int milliseconds) => interval = milliseconds;
 
         /// <summary>
@@ -110,6 +115,7 @@ namespace Obscurum.TDT
         /// </param>
         /// <remarks>This new <see cref="interval"/> will only go into effect after a fresh <see cref="Start"/>.
         /// </remarks>
+        /// <since>0.1.0</since>
         public void SetTps(int tps) => SetInterval(1000 / tps);
         
         public override string ToString() => "Routine{" + 

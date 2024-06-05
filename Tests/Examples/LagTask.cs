@@ -1,14 +1,12 @@
 ﻿using System.Threading;
 
-namespace Obscurum.TDT.Tests.Examples
+namespace Incantium.TDT.Tests.Examples
 {
     /// <summary>
     /// Class that represents an implementation of the <see cref="Task"/>, <see cref="Task{T}"/>,
     /// <see cref="MultiTask"/> and <see cref="MultiTask{T}"/> interfaces for testing purposes. This class will create
     /// (increasingly) artificial lag for the amount of <see cref="milliseconds"/> specified upon execution.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal sealed class LagTask : Task, Task<string>, MultiTask, MultiTask<string>
     {
         private readonly int milliseconds;
