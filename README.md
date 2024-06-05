@@ -145,7 +145,7 @@ endless threads, which do have overhead for each started. With batching, each ba
 tasks. Here below is an example how batching works with a multitask with seven single tasks, split into batches of a 
 maximum of 5:
 
-![](.Images/Batching.png)
+![](Documentation~/Batching.png)
 
 ### Task dependencies
 
