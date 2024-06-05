@@ -1,17 +1,17 @@
 {
-    "name": "com.obscurum.tdt.tests",
-    "rootNamespace": "Obscurum.TDT",
+    "name": "com.incantium.tdt.tests",
+    "rootNamespace": "Incantium.TDT",
     "references": [
-        "com.obscurum.tdt.runtime",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "com.incantium.tdt"
     ],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": true,
+    "overrideReferences": false,
     "precompiledReferences": [
         "nunit.framework.dll"
     ],
@@ -20,5 +20,5 @@
         "UNITY_INCLUDE_TESTS"
     ],
     "versionDefines": [],
-    "noEngineReferences": false
+    "noEngineReferences": true
 }

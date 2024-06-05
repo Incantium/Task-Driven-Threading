@@ -1,6 +1,6 @@
 {
-    "name": "com.obscurum.tdt.runtime",
-    "rootNamespace": "Obscurum.TDT",
+    "name": "com.incantium.tdt",
+    "rootNamespace": "Incantium.TDT",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -10,5 +10,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": false
+    "noEngineReferences": true
 }

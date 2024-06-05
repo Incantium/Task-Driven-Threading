@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading;
 
-namespace Obscurum.TDT.Runners
+namespace Incantium.TDT.Runners
 { 
     /// <summary>
     /// Class able to run a <see cref="MultiTask{T}"/> on a separate <see cref="Thread"/>.
     /// </summary>
     /// <typeparam name="T">The typing of the <see cref="MultiTask{T}"/>.</typeparam>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal class MultiRunner<T> : BaseMultiRunner
     {
         private readonly MultiTask<T> task;
@@ -24,6 +22,7 @@ namespace Obscurum.TDT.Runners
         /// <param name="task">The <see cref="MultiTask{T}"/> to run.</param>
         /// <param name="tracker">The <see cref="Tracker{T}"/> to update when completed.</param>
         /// <param name="batch">The amount of tasks for the <see cref="MultiTask{T}"/>.</param>
+        /// <since>0.1.0</since>
         internal MultiRunner(MultiTask<T> task, Tracker<T[]> tracker, int batch = 1)
         {
             this.task = task;
@@ -70,8 +69,6 @@ namespace Obscurum.TDT.Runners
     /// <summary>
     /// Class able to run a <see cref="MultiTask"/> on a separate <see cref="Thread"/>.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     internal class MultiRunner : BaseMultiRunner
     {
         private readonly MultiTask task;
@@ -86,6 +83,7 @@ namespace Obscurum.TDT.Runners
         /// <param name="task">The <see cref="MultiTask"/> to run.</param>
         /// <param name="tracker">The <see cref="Tracker"/> to update when completed.</param>
         /// <param name="batch">The amount of tasks for the <see cref="MultiTask"/>.</param>
+        /// <since>0.1.0</since>
         internal MultiRunner(MultiTask task, Tracker tracker, int batch = 1)
         {
             this.task = task;

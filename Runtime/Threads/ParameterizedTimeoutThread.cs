@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading;
 
-namespace Obscurum.TDT.Threads
+namespace Incantium.TDT.Threads
 {
     /// <summary>
     /// Class that represents a parameterized thread that will automatically <see cref="timeout"/> after a specified
     /// duration.
     /// </summary>
-    /// <author>Vanaest</author>
-    /// <version>0.1.0</version>
     public sealed class ParameterizedTimeoutThread
     {
         private readonly ParameterizedThreadStart method;
@@ -18,6 +16,7 @@ namespace Obscurum.TDT.Threads
         /// <summary>
         /// Event to get notified when the thread had timed out.
         /// </summary>
+        /// <since>0.1.0</since>
         public event Action<Exception> onTimeout;
 
         /// <summary>
@@ -26,6 +25,7 @@ namespace Obscurum.TDT.Threads
         /// <param name="start">The method to run in the thread.</param>
         /// <param name="milliseconds">The maximum amount of milliseconds before the thread times out. It is set to a
         /// default of one minute.</param>
+        /// <since>0.1.0</since>
         public ParameterizedTimeoutThread(ParameterizedThreadStart start, int milliseconds = 60000)
         {
             method = start;
@@ -38,6 +38,7 @@ namespace Obscurum.TDT.Threads
         /// Method to start the execution of the thread.
         /// </summary>
         /// <param name="obj">The parameter of the <see cref="method"/>.</param>
+        /// <since>0.1.0</since>
         public void Start(object obj)
         {
             var token = source.Token;
