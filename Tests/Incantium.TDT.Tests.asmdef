@@ -1,10 +1,10 @@
 {
-    "name": "com.incantium.tdt.tests",
+    "name": "Incantium.TDT.Tests",
     "rootNamespace": "Incantium.TDT",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "com.incantium.tdt"
+        "Incantium.TDT"
     ],
     "includePlatforms": [
         "Editor"

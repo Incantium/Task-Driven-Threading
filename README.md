@@ -24,7 +24,7 @@ the threads.
 ## Prerequisites
 
 Task Driven Threading, like any multithreading solution, needs to be used carefully in a specific scenario with a
-logical use case. Usually, the [Unity's Job System](https://docs.unity3d.com/Manual/JobSystem.html) is goog enough for
+logical use case. Usually, the [Unity's Job System](https://docs.unity3d.com/Manual/JobSystem.html) is good enough for
 multithreading, but can be limiting. Use this package only when Unity's Job System isn't working for you and you 
 satisfy one of the following one or more of the following requirements:
 
@@ -42,7 +42,7 @@ especially useful to create ways to [handle](#keeping-track-of-your-threads) the
 way.
 
 ```csharp
-using Obscurum.TDT;
+using Incantium.TDT;
 
 // Task adding two floating point values together
 public class MyTask : Task<int>
@@ -64,7 +64,7 @@ different ways to start a task, even with [task dependencies](#task-dependencies
 use the simpler variant compatible with the task as described above.
 
 ```csharp
-using Obscurum.TDT;
+using Incantium.TDT;
 
 public class Main
 {
@@ -90,7 +90,7 @@ every task is executed on its own thread, it is impossible to know when it will 
 handle the completion of your tasks in an asynchronous way.
 
 ```csharp
-using Obscurum.TDT;
+using Incantium.TDT;
 
 public class Main
 {
